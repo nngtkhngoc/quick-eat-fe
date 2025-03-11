@@ -5,4 +5,48 @@
 @theme {
   --font-quicksand: "Quicksand", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+  --animate-bounce: bounce 2s ease-in-out infinite;
+  --animate-typing: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
+  --animate-zoom: zoom 2s infinite alternate;
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-2%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0%;
+      visibility: hidden;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+    100% {
+      border-color: "white";
+    }
+  }
+
+  @keyframes zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

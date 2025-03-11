@@ -20,7 +20,10 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
 
   const renderOptions = (options: string[]) => {
     return options.map((option) => (
-      <li className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center border-b-1 border-gray-300 w-2/3">
+      <li
+        key={option}
+        className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center border-b-1 border-gray-300 w-2/3"
+      >
         {option}
       </li>
     ));
