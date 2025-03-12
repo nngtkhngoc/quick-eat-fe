@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home.tsx";
+import Home from "./pages/HomePage/Home.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import Layout from "./components/layout.tsx";
 

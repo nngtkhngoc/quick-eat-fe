@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <div className="w-screen sticky top-0 h-[80px] w-screen bg-white text-red-600 font-poppins font-bold shadow-lg overflow-x-hidden z-10">
+    <div className="w-max-screen sticky top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg overflow-x-hidden z-10">
       <div className="container h-full mx-auto px-4 flex flex-row items-center justify-between">
         <ThemeToggle />
         <div className="flex flex-row items-center gap-2 font-poppins">
