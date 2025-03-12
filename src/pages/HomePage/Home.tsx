@@ -5,6 +5,7 @@ import service2 from "../../assets/images/service2.png";
 import service3 from "../../assets/images/service3.png";
 import HowItWorks from "./components/HowItWorks";
 import Button from "../../components/Button";
+import Menu from "./components/Menu";
 
 interface serviceCard {
   title: string;
@@ -30,7 +31,7 @@ export default function Home() {
       img_src: service2,
       bg_color: "bg-[#f6f179]",
       text_color: "text-black",
-      width: "w-[150px]",
+      width: "w-[160px]",
       height: "h-[150px]",
     },
     {
@@ -60,18 +61,21 @@ export default function Home() {
   return (
     <div className="font-poppins">
       <Banner />
-      <div className="bg-gray-200 w-full  py-5">
-        <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5 p-5 lg:px-35">
+
+      <div className="bg-gray-200 w-full py-5">
+        <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5 p-5 lg:px-35 md:-top-[120px] relative">
           {renderServiceCards(serviceCards)}
         </div>
 
-        <div className="w-full flex justify-center items-center flex-col space-y-5">
-          <div className="font-bold w-max relative text-[30px] before:w-full before:items-center before:h-3 before:bg-amber-200 before:absolute before:bottom-2 before:-z-2 z-5">
+        <div className="w-full flex justify-center items-center flex-col space-y-5 md:-top-[100px] relative pb-5">
+          <div className="font-bold w-max relative text-[30px] before:w-full pr-4 pl-4 before:h-3 before:bg-amber-200 before:absolute before:bottom-2 before:right-0 before:-z-2 z-5">
             HOW IT WORKS
           </div>
           <HowItWorks />
           <Button text="Order Now!" />
         </div>
+
+        <Menu />
       </div>
     </div>
   );
