@@ -9,8 +9,6 @@ export default function ThemeToggle() {
       document.documentElement.classList.add("dark");
       localStorage.theme = "dark";
     }
-
-    console.log("Current theme:", localStorage.theme);
   };
 
   return (

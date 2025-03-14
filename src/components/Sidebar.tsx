@@ -1,36 +1,43 @@
 import { X } from "lucide-react";
 import logo from "../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 interface sidebarProps {
   openSidebar: boolean;
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface option {
+  name: string;
+  path: string;
+}
+
 export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
   const options = [
-    "Home",
-    "About",
-    "Shop",
-    "Chef",
-    "Blog",
-    "Profile",
-    "Cart",
-    "Sign Out",
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Shop", path: "/shop" },
+    { name: "Chef", path: "/chef" },
+    { name: "Blog", path: "/blog" },
+    { name: "Profile", path: "/profile" },
+    { name: "Cart", path: "/cart" },
+    { name: "Sign Out", path: "/about" },
   ];
 
-  const renderOptions = (options: string[]) => {
+  const renderOptions = (options: option[]) => {
     return options.map((option) => (
-      <li
-        key={option}
-        className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center border-b-1 border-gray-300 w-2/3"
+      <Link
+        to={option.path}
+        key={option.name}
+        className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center border-b-1 border-gray-300 w-2/3 dark:text-white"
       >
-        {option}
-      </li>
+        {option.name}
+      </Link>
     ));
   };
   return (
     <div
-      className={`fixed top-0 right-0 h-screen w-[280px] bg-white shadow-xl transition-transform duration-500  ${
+      className={`fixed top-0 right-0 h-screen w-[280px] bg-white shadow-xl transition-transform duration-500 dark:bg-black  ${
         openSidebar ? "translate-x-0" : "translate-x-full"
       }`}
     >

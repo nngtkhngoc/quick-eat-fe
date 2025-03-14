@@ -59,15 +59,15 @@ export default function Home() {
   };
 
   return (
-    <div className="font-poppins">
+    <div className="font-poppins mt-[80px]">
       <Banner />
 
-      <div className="bg-gray-200 w-full py-5">
-        <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5 p-5 lg:px-35 md:-top-[120px] relative">
+      <div className="bg-gray-200 pt-5 dark:bg-gray-500">
+        <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5 p-5 lg:gap-1 lg:place-items-center md:-top-[120px] relative">
           {renderServiceCards(serviceCards)}
         </div>
 
-        <div className="w-full flex justify-center items-center flex-col space-y-5 md:-top-[100px] relative pb-5">
+        <div className=" flex justify-center items-center flex-col space-y-5 md:-top-[100px] relative pb-5">
           <div className="font-bold w-max relative text-[30px] before:w-full pr-4 pl-4 before:h-3 before:bg-amber-200 before:absolute before:bottom-2 before:right-0 before:-z-2 z-5">
             HOW IT WORKS
           </div>

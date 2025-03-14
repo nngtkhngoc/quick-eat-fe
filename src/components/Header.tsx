@@ -1,9 +1,14 @@
-import logo from "../assets/images/logo.png";
 import { useState } from "react";
 import { Menu, ShoppingCart, UserCircle } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
+
+interface option {
+  name: string;
+  path: string;
+}
 
 export default function Header() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -12,34 +17,35 @@ export default function Header() {
     setOpenSidebar(!openSidebar);
   };
 
-  const options = ["Home", "About", "Shop", "Chef", "Blog"];
-  const renderOptions = (options: string[]) => {
+  const options = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Shop", path: "/shop" },
+    { name: "Chef", path: "/chef" },
+    { name: "Blog", path: "/blog" },
+  ];
+  const renderOptions = (options: option[]) => {
     return options.map((option) => (
-      <div
-        key={option}
-        className="text-black text-[16px] font-medium cursor-pointer transition duration-300 ease-in-out group hover:text-red-600 hover:font-bold w-[50px] flex justify-center text-center flex-col"
+      <Link
+        to={option.path}
+        key={option.name}
+        className="text-black text-[16px] font-medium cursor-pointer transition duration-300 ease-in-out group hover:text-red-600 hover:font-bold w-[50px] flex justify-center text-center flex-col dark:text-white"
       >
-        {option}
+        {option.name}
         <hr className="w-10 h-[1.5px] bg-gray-500 mx-auto scale-x-0 group-hover:scale-x-100 group-hover:text-red-600 transition-transform duration-300" />
-      </div>
+      </Link>
     ));
   };
 
   return (
-    <div className="w-screen sticky top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg overflow-x-hidden z-20">
-      <div className="container h-full mx-auto px-4 flex flex-row items-center justify-between">
-        <ThemeToggle />
-        <div className="flex flex-row items-center gap-2 font-poppins">
-          <img src={logo} alt="logo-pic" className="w-12 h-12" />
-          <Link to="/">
-            <div className="text-[20px]">
-              <span className="text-black">Quick</span>
-              <span>Eat</span>
-            </div>
-          </Link>
+    <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black">
+      <div className=" h-full px-10 flex flex-row items-center justify-between  w-full">
+        <div className="flex flex-row items-center gap-9 font-poppins">
+          <ThemeToggle />
+          <Logo color="text-black dark:text-white" />
         </div>
         {/*Desktop navigation*/}
-        <div className="hidden md:flex space-x-10">
+        <div className="hidden md:flex space-x-5 ">
           {renderOptions(options)}
         </div>
         <div className="hidden md:flex space-x-5 cursor-pointer">
