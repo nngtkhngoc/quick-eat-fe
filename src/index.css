@@ -8,6 +8,8 @@
   --animate-bounce: bounce 2s ease-in-out infinite;
   --animate-typing: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
   --animate-zoom: zoom 2s infinite alternate;
+  --animate-jump: jump 1s infinite alternate;
+
   @keyframes bounce {
     0%,
     100% {
@@ -45,6 +47,18 @@
     }
     100% {
       transform: scale(1.1);
+    }
+  }
+
+  @keyframes jump {
+    0%,
+    100% {
+      transform: translateY(-15%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
 }
