@@ -32,7 +32,7 @@ export default function Footer() {
 
   const renderOptions = (options: option[]) => {
     return options.map((option) => (
-      <div className="text-white flex gap-2 font-semibold">
+      <div className="text-white flex gap-2 font-semibold" key={option.name}>
         <ChevronsRight className="text-red-600" />
         {option.name}
       </div>

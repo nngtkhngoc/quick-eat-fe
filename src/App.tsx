@@ -1,8 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  // useLocation,
+} from "react-router-dom";
 import Home from "./pages/HomePage/Home.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import Layout from "./components/layout.tsx";
 import About from "./pages/About/About.tsx";
+// import { useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +21,22 @@ const router = createBrowserRouter([
   },
 ]);
 
+// function ScrollToTop() {
+//   const { pathname } = useLocation();
+
+//   useEffect(() => {
+//     window.scrollTo(0, 0);
+//   }, [pathname]);
+
+//   return null;
+// }
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
