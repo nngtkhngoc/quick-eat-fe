@@ -9,6 +9,7 @@
   --animate-typing: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
   --animate-zoom: zoom 2s infinite alternate;
   --animate-jump: jump 2s infinite;
+  --animate-slider: slider 40s linear infinite;
 
   @keyframes bounce {
     0%,
@@ -59,6 +60,15 @@
     50% {
       transform: none;
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  @keyframes slider {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(calc(-250px * 6));
     }
   }
 }
