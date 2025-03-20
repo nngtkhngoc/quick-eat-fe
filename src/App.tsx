@@ -7,6 +7,7 @@ import Home from "./pages/HomePage/Home.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import Layout from "./components/layout.tsx";
 import About from "./pages/About/About.tsx";
+import FoodDetails from "./pages/FoodDetails/FoodDetails.tsx";
 // import { useEffect } from "react";
 
 const router = createBrowserRouter([
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/sign-up", element: <SignUp /> },
       { path: "/about", element: <About /> },
+      { path: "/food/:id", element: <FoodDetails /> },
     ],
   },
 ]);
