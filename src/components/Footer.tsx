@@ -1,4 +1,6 @@
 import { Compass, ChevronsRight, PhoneIcon, Mail } from "lucide-react";
+import Partners from "./Partners";
+import WorkWithUs from "./WorkWithUs";
 import footerImage from "../assets/images/footer.jpg";
 import Logo from "./Logo";
 
@@ -40,44 +42,48 @@ export default function Footer() {
   };
 
   return (
-    <div
-      style={{ backgroundImage: `url(${footerImage})` }}
-      className="text-white font-poppins p-4 pt-15 w-full flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-4"
-    >
-      <div className="w-full flex flex-col gap-5">
-        <Logo color="text-white" />
+    <div>
+      <WorkWithUs />
+      <Partners />
+      <div
+        style={{ backgroundImage: `url(${footerImage})` }}
+        className="text-white font-poppins p-4 pt-15 w-full flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-4"
+      >
+        <div className="w-full flex flex-col gap-5">
+          <Logo color="text-white" />
 
-        <div className="flex gap-3">
-          <Compass className="text-red-600" />
-          <div className="text-[16px]">
-            8901 Marmora Road, New York, NY 10013
+          <div className="flex gap-3">
+            <Compass className="text-red-600" />
+            <div className="text-[16px]">
+              8901 Marmora Road, New York, NY 10013
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <PhoneIcon className="text-red-600" />
+            <div className="text-[16px]">+1800 650 5620</div>
+          </div>
+
+          <div className="flex gap-3">
+            <Mail className="text-red-600" />
+            <div className="text-[16px]">email@example.com</div>
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <PhoneIcon className="text-red-600" />
-          <div className="text-[16px]">+1800 650 5620</div>
+        <div className="flex flex-col gap-4">
+          <div className="text-[30px] font-bold">MENU</div>
+          {renderOptions(menuOptions)}
         </div>
 
-        <div className="flex gap-3">
-          <Mail className="text-red-600" />
-          <div className="text-[16px]">email@example.com</div>
+        <div className="flex flex-col gap-4">
+          <div className="text-[30px] font-bold">COMPANY</div>
+          {renderOptions(companyOptions)}
         </div>
-      </div>
 
-      <div className="flex flex-col gap-4">
-        <div className="text-[30px] font-bold">MENU</div>
-        {renderOptions(menuOptions)}
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <div className="text-[30px] font-bold">COMPANY</div>
-        {renderOptions(companyOptions)}
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <div className="text-[30px] font-bold">SUPORT</div>
-        {renderOptions(supportOptions)}
+        <div className="flex flex-col gap-4">
+          <div className="text-[30px] font-bold">SUPORT</div>
+          {renderOptions(supportOptions)}
+        </div>
       </div>
     </div>
   );

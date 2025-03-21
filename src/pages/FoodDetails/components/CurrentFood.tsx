@@ -12,6 +12,7 @@ export default function CurrentFood() {
   const { fetchFood, loading, currentFood } = useFoodStore();
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     if (id) fetchFood(id);
@@ -54,8 +55,16 @@ export default function CurrentFood() {
     return categories.map((category) => <div>{category.category.name} | </div>);
   };
 
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrease = () => {
+    setQuantity(quantity - 1);
+  };
+
   return (
-    <div className="font-poppins py-20 relative flex flex-col gap-8 lg:flex-row">
+    <div className="font-poppins pt-20 relative flex flex-col gap-6 lg:flex-row">
       <img
         src={corn}
         alt="corn"
@@ -82,7 +91,7 @@ export default function CurrentFood() {
         )}
       </div>
 
-      <div className="flex flex-col gap-8 px-2">
+      <div className="flex flex-col gap-6 px-2">
         <div>
           <div className="flex flex-row gap-2 text-[16px]">
             <div>({currentFood.avg_rate}) ⭐ </div>
@@ -102,7 +111,7 @@ export default function CurrentFood() {
         </div>
 
         <div>
-          <div className="flex flex-row gap-2 border-b  border-zinc-500 pb-8">
+          <div className="flex flex-row gap-2 border-b border-zinc-500 pb-6">
             <div className="text-zinc-600"> Categories: </div>
             {currentFood.food_catgories?.length > 0 && (
               <div className="flex flex-row gap-2">
@@ -110,6 +119,33 @@ export default function CurrentFood() {
               </div>
             )}
           </div>
+        </div>
+
+        <div className="flex flex-row items-center border-b pb-6 border-zinc-500">
+          <div className="w-[120px]">
+            <button
+              onClick={handleDecrease}
+              className="border-l border-t border-b border-red-600 p-2 bg-white"
+            >
+              -
+            </button>
+            <input
+              className=" w-[45px] py-2 border-t border-b border-red-600 bg-white text-center focus:outline-none text-red-600"
+              value={quantity}
+              type="text"
+            />
+
+            <button
+              onClick={handleIncrease}
+              className="border-r  border-t border-b border-red-600 p-2 bg-white"
+            >
+              +
+            </button>
+          </div>
+
+          <button className=" relative bg-red-600 w-max lg:text-[18px] py-2 px-11 font-poppins border-transparent text-white text-semibold text-[17px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500 border border-white">
+            Add
+          </button>
         </div>
       </div>
     </div>

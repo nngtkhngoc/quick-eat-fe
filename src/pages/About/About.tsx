@@ -2,9 +2,7 @@ import Awards from "./components/Awards";
 import BannerLocation from "../../components/BannerLocation";
 import Firm from "./components/Firm";
 import Menu from "./components/Menu";
-import Partners from "./components/Partners";
 import Service from "./components/Service";
-import WorkWithUs from "./components/WorkWithUs";
 
 export default function About() {
   return (
@@ -14,8 +12,6 @@ export default function About() {
       <Service />
       <Menu />
       <Awards />
-      <WorkWithUs />
-      <Partners />
     </div>
   );
 }
