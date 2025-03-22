@@ -12,6 +12,7 @@ export default function Partners() {
       <img
         className="slide flex w-[200px] items-center justify-center"
         src={image}
+        key={image}
       />
     ));
   };

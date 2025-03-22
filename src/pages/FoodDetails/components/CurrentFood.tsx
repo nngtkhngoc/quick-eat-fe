@@ -1,28 +1,16 @@
-import { useFoodStore } from "../../../store/useFoodStore";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import corn from "../../../assets/images/img1.png";
 import mushroom from "../../../assets/images/img2.png";
+import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
+import payment_card from "../../../assets/images/payment_card.png";
 
 interface category {
   category: { name: string };
 }
 
-export default function CurrentFood() {
-  const { fetchFood, loading, currentFood } = useFoodStore();
-  const { id } = useParams();
+export default function CurrentFood({ currentFood, loading }) {
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    if (id) fetchFood(id);
-  }, [fetchFood, id]);
-
-  useEffect(() => {
-    if (currentFood?.image?.length > 0) {
-      setSelectedImage(currentFood.image[0]);
-    }
-  }, [currentFood]);
 
   if (loading || !currentFood) {
     return (
@@ -52,7 +40,11 @@ export default function CurrentFood() {
   };
 
   const renderCategories = (categories: category[]) => {
-    return categories.map((category) => <div>{category.category.name} | </div>);
+    return categories.map((category, index) => (
+      <div key={index}>
+        {category.category.name} {index == categories.length - 1 ? "" : " | "}
+      </div>
+    ));
   };
 
   const handleIncrease = () => {
@@ -79,7 +71,7 @@ export default function CurrentFood() {
       <div className="px-4 flex flex-col gap-3">
         {currentFood.image?.length > 0 && (
           <img
-            src={selectedImage}
+            src={selectedImage || currentFood.image[0]}
             className="w-[250px] h-[220px] object-cover rounded-[15px] z-5 md:w-[500px] md:h-[440px]"
           />
         )}
@@ -112,7 +104,7 @@ export default function CurrentFood() {
 
         <div>
           <div className="flex flex-row gap-2 border-b border-zinc-500 pb-6">
-            <div className="text-zinc-600"> Categories: </div>
+            <div className="text-zinc-500"> Categories: </div>
             {currentFood.food_catgories?.length > 0 && (
               <div className="flex flex-row gap-2">
                 {renderCategories(currentFood.food_catgories)}
@@ -133,6 +125,7 @@ export default function CurrentFood() {
               className=" w-[45px] py-2 border-t border-b border-red-600 bg-white text-center focus:outline-none text-red-600"
               value={quantity}
               type="text"
+              onChange={(e) => setQuantity(Number(e.target.value))}
             />
 
             <button
@@ -146,6 +139,19 @@ export default function CurrentFood() {
           <button className=" relative bg-red-600 w-max lg:text-[18px] py-2 px-11 font-poppins border-transparent text-white text-semibold text-[17px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500 border border-white">
             Add
           </button>
+        </div>
+
+        <div className="flex flex-row gap-2 border-b border-zinc-500 pb-6">
+          <div className="text-zinc-500"> Share: </div>
+          <Facebook className="text-black hover:text-red-600 w-[22px] transition-all duration-500 cursor-pointer" />
+          <Instagram className="text-black hover:text-red-600 w-[22px] transition-all duration-500 cursor-pointer" />
+          <Twitter className="text-black hover:text-red-600 w-[22px] transition-all duration-500 cursor-pointer" />
+          <PhoneCall className="text-black hover:text-red-600 w-[22px] transition-all duration-500 cursor-pointer" />
+        </div>
+
+        <div>
+          <div className="text-zinc-500"> Guaranteed Safe Checkout </div>
+          <img src={payment_card} alt="payment_card" />
         </div>
       </div>
     </div>
