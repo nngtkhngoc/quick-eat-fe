@@ -1,10 +1,63 @@
 import { useState } from "react";
-
-import { Rate } from "antd";
 import Description from "./Description";
 import Review from "./Review";
 
-export default function ReviewDescription({ currentFood, loading }) {
+interface food {
+  id: string;
+  name: string;
+  price: number;
+  availablity: string;
+  description: string;
+  image: string[];
+  avg_rate: number;
+  brand_id: string;
+  brand: brand[];
+  reviews: review[];
+  food_tags: tag[];
+  food_categories: category[];
+}
+
+interface brand {
+  id: string;
+  name: string;
+}
+
+interface user {
+  id: string;
+  username: string;
+  fullname: string;
+  phone_number: string;
+  email: string;
+  profile_pic: string;
+}
+
+interface review {
+  id: string;
+  score: number;
+  content: string;
+  created_at: string;
+  food_id: string;
+  user_id: string;
+  user: user;
+  food_tags: tag[];
+  food_categories: category[];
+}
+
+interface tag {
+  tag: { id: string; name: string };
+}
+
+interface category {
+  category: { name: string };
+}
+
+export default function ReviewDescription({
+  currentFood,
+  loading,
+}: {
+  currentFood: food | null;
+  loading: boolean;
+}) {
   const [content, setContent] = useState("description");
 
   const titles = ["description", "reviews"];
@@ -29,7 +82,7 @@ export default function ReviewDescription({ currentFood, loading }) {
   };
 
   return (
-    <div className="px-2 pt-8 gap-4 flex flex-col font-poppins">
+    <div className="px-2 pt-8 gap-4 flex flex-col font-poppins lg:px-30">
       <div className="flex flex-row gap-4 font-semibold uppercase text-zinc-500">
         {renderContent(titles)}
       </div>

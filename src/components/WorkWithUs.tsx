@@ -2,7 +2,7 @@ import { Store } from "lucide-react";
 
 export default function WorkWithUs() {
   return (
-    <div className="flex items-center justify-center bg-red-600 font-poppins relative before:absolute before:left-0 before:top-0   before:z-[2] before:h-1/3 before:w-full before:bg-[linear-gradient(to_bottom,#f1f1f1,rgba(255,255,255,0)_100%)] after:absolute after:right-0 after:-bottom-2 after:z-[2] after:h-1/3 after:w-full after:-scale-x-100 after:bg-[linear-gradient(to_top,#f1f1f1,rgba(255,255,255,0)_100%)]">
+    <div className="flex items-center justify-center bg-red-600 font-poppins">
       <div className="p-4 flex items-center justify-center flex-col gap-2 lg:gap-5 md:flex-row py-20">
         <Store className="text-white w-[50px] h-[50px] md:w-[75px] md:h-[75px]" />
 

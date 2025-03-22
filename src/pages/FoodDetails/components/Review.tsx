@@ -1,4 +1,25 @@
-import { Rate } from "antd";
+import AddReview from "./AddReview";
+import ReviewDetails from "./ReviewDetails";
+
+interface food {
+  id: string;
+  name: string;
+  price: number;
+  availablity: string;
+  description: string;
+  image: string[];
+  avg_rate: number;
+  brand_id: string;
+  brand: brand[];
+  reviews: review[];
+  food_tags: tag[];
+  food_categories: category[];
+}
+
+interface brand {
+  id: string;
+  name: string;
+}
 
 interface user {
   id: string;
@@ -17,52 +38,29 @@ interface review {
   food_id: string;
   user_id: string;
   user: user;
+  food_tags: tag[];
+  food_categories: category[];
 }
 
-export default function Review({ currentFood, loading }) {
-  if (!currentFood || loading) return <div>Loading...</div>;
-  const renderReviews = (reviews: review[]) => {
-    return reviews.map((review) => (
-      <div
-        className="flex flex-row items-center bg-white rounded-[10px] gap-3 p-3 shadow-lg h-[150px] truncate"
-        key={review.id}
-      >
-        <img
-          src={review.user.profile_pic}
-          alt="avt"
-          className="w-[100px] h-[100px] object-cover rounded-full"
-        />
+interface tag {
+  tag: { id: string; name: string };
+}
 
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-4 ">
-            <div>
-              <div className="font-semibold capitalize">
-                {review.user.fullname}
-              </div>
+interface category {
+  category: { name: string };
+}
 
-              <Rate
-                disabled
-                defaultValue={review.score}
-                style={{ fontSize: 14 }}
-              />
-            </div>
-            <div className=" pt-1 text-[12px] text-zinc-600 flex justify-end">
-              {review.created_at.slice(0, 10)}
-            </div>
-          </div>
-
-          <div className="text-[14px] text-zinc-600">{review.content}</div>
-        </div>
-      </div>
-    ));
-  };
+export default function Review({
+  currentFood,
+  loading,
+}: {
+  currentFood: food | null;
+  loading: boolean;
+}) {
   return (
-    <div>
-      {currentFood.reviews?.length > 0 && (
-        <div className="flex flex-col gap-2">
-          {renderReviews(currentFood.reviews)}
-        </div>
-      )}
+    <div className="flex flex-col gap-10">
+      <ReviewDetails currentFood={currentFood} loading={loading} />
+      <AddReview />
     </div>
   );
 }

@@ -1,14 +1,63 @@
 import { useState } from "react";
-import corn from "../../../assets/images/img1.png";
-import mushroom from "../../../assets/images/img2.png";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import payment_card from "../../../assets/images/payment_card.png";
+
+interface food {
+  id: string;
+  name: string;
+  price: number;
+  availablity: string;
+  description: string;
+  image: string[];
+  avg_rate: number;
+  brand_id: string;
+  brand: brand[];
+  reviews: review[];
+  food_tags: tag[];
+  food_categories: category[];
+}
+
+interface brand {
+  id: string;
+  name: string;
+}
+
+interface user {
+  id: string;
+  username: string;
+  fullname: string;
+  phone_number: string;
+  email: string;
+  profile_pic: string;
+}
+
+interface review {
+  id: string;
+  score: number;
+  content: string;
+  created_at: string;
+  food_id: string;
+  user_id: string;
+  user: user;
+  food_tags: tag[];
+  food_categories: category[];
+}
+
+interface tag {
+  tag: { id: string; name: string };
+}
 
 interface category {
   category: { name: string };
 }
 
-export default function CurrentFood({ currentFood, loading }) {
+export default function CurrentFood({
+  currentFood,
+  loading,
+}: {
+  currentFood: food | null;
+  loading: boolean;
+}) {
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(0);
 
@@ -56,19 +105,8 @@ export default function CurrentFood({ currentFood, loading }) {
   };
 
   return (
-    <div className="font-poppins pt-20 relative flex flex-col gap-6 lg:flex-row">
-      <img
-        src={corn}
-        alt="corn"
-        className="absolute top-20 right-0 w-[130px] animate-bounce z-10"
-      />
-      <img
-        src={mushroom}
-        alt="mushroom"
-        className="absolute -top-8 left-5 w-[200px] animate-bounce -z-3"
-      />
-
-      <div className="px-4 flex flex-col gap-3">
+    <div className="font-poppins pt-20 relative flex flex-col gap-6 lg:flex-row lg:gap-0">
+      <div className="px-4 flex flex-col gap-3 lg:pr-10 lg:pr-3">
         {currentFood.image?.length > 0 && (
           <img
             src={selectedImage || currentFood.image[0]}
@@ -77,37 +115,37 @@ export default function CurrentFood({ currentFood, loading }) {
         )}
 
         {currentFood.image?.length > 0 && (
-          <div className="flex flex-row gap-2">
+          <div className="w-[250px] md:w-[500px] grid grid-cols-3 gap-2">
             {renderImages(currentFood.image)}
           </div>
         )}
       </div>
 
-      <div className="flex flex-col gap-6 px-2">
+      <div className="flex flex-col gap-6 px-2 ">
         <div>
-          <div className="flex flex-row gap-2 text-[16px]">
+          <div className="flex flex-row gap-2 text-[14px] ">
             <div>({currentFood.avg_rate}) ⭐ </div>
-            <div className=" text-[#00D26D]">
+            <div className="text-[#00D26D]">
               ({currentFood.reviews?.length || "0"} reviews)
             </div>
           </div>
         </div>
 
         <div className="flex flex-col ">
-          <div className="font-bold uppercase text-[37px] px-4 relative z-10 w-max after:-z-5 after:w-full after:h-1/4 after:bg-[#ece76e] after:absolute after:bottom-1 after:left-0">
+          <div className="font-bold uppercase text-[37px] px-4 relative z-10 w-max after:-z-5 after:w-full after:h-1/4 after:bg-[#ece76e] after:absolute after:bottom-1 after:left-0 lg:text-[30px]">
             {currentFood.name}
           </div>
-          <div className="font-semibold uppercase text-[40px] text-[#00D26D] border-b border-zinc-500">
+          <div className="font-semibold uppercase text-[40px] text-[#00D26D] border-b border-zinc-500 lg:text-[30px]">
             ${currentFood.price}
           </div>
         </div>
 
         <div>
-          <div className="flex flex-row gap-2 border-b border-zinc-500 pb-6">
-            <div className="text-zinc-500"> Categories: </div>
-            {currentFood.food_catgories?.length > 0 && (
+          <div className="flex flex-row gap-2 border-b border-zinc-500 pb-6 ">
+            <div className="text-zinc-500 "> Categories: </div>
+            {currentFood.food_categories?.length > 0 && (
               <div className="flex flex-row gap-2">
-                {renderCategories(currentFood.food_catgories)}
+                {renderCategories(currentFood.food_categories)}
               </div>
             )}
           </div>
@@ -117,7 +155,7 @@ export default function CurrentFood({ currentFood, loading }) {
           <div className="w-[120px]">
             <button
               onClick={handleDecrease}
-              className="border-l border-t border-b border-red-600 p-2 bg-white"
+              className="border-l border-t border-b border-red-600 p-2 bg-white cursor-pointer"
             >
               -
             </button>
@@ -130,7 +168,7 @@ export default function CurrentFood({ currentFood, loading }) {
 
             <button
               onClick={handleIncrease}
-              className="border-r  border-t border-b border-red-600 p-2 bg-white"
+              className="border-r  border-t border-b border-red-600 p-2 bg-white cursor-pointer"
             >
               +
             </button>
