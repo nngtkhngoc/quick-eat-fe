@@ -52,6 +52,7 @@ interface category {
 interface FoodStore {
   currentFood: food | null;
   loading: boolean;
+
   relatedFood: food[];
   fetchFood: (id: string) => Promise<void>;
   fetchRelatedFood: (
@@ -59,6 +60,9 @@ interface FoodStore {
     page: number,
     filter_value: string[]
   ) => Promise<void>;
+
+  newFood: food[];
+  fetchNewFood: () => Promise<void>;
 }
 
 const BASE_URL = "http://localhost:5001/api";
@@ -68,6 +72,7 @@ export const useFoodStore = create<FoodStore>((set) => ({
   relatedFood: [],
   currentFood: null,
   loading: false,
+  newFood: [],
 
   fetchFood: async (id: string) => {
     set({ loading: true });
@@ -108,5 +113,22 @@ export const useFoodStore = create<FoodStore>((set) => ({
       console.log("Error fetching related food", error);
     }
     set({ loading: false });
+  },
+
+  fetchNewFood: async () => {
+    set({ loading: false });
+    try {
+      const response = await fetch(
+        `${BASE_URL}/food?limit=4&page=1&sort=created_at`
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        set({ newFood: data.data });
+      }
+    } catch (error) {
+      console.log("Error fetching new food", error);
+    }
   },
 }));

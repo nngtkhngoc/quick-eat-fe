@@ -66,6 +66,7 @@ export default function Search({
         loadingBrands={loadingBrands}
         brands={brands}
       />
+
       <div className="w-full flex justify-center pb-5">
         <button
           onClick={handleClearAll}

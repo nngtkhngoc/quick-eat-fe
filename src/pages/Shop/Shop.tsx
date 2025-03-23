@@ -7,6 +7,7 @@ import mushroom from "../../assets/images/img2.png";
 import { useState, useEffect } from "react";
 import { useCategoryStore } from "../../store/useCategoryStore";
 import { useBrandStore } from "../../store/useBrandStore";
+import { useFoodStore } from "../../store/useFoodStore";
 
 export default function Shop() {
   const [searchCategories, setSearchCategories] = useState<string[]>([]);
@@ -22,12 +23,15 @@ export default function Shop() {
 
   const { fetchBrands, loading: loadingBrands, brands } = useBrandStore();
 
+  const { fetchNewFood, newFood, loading: loadingNewFood } = useFoodStore();
+
   const limit = 5,
     page = 1;
   useEffect(() => {
     fetchCategories(limit, page);
     fetchBrands(limit, page);
-  }, [fetchCategories, fetchBrands]);
+    fetchNewFood();
+  }, [fetchCategories, fetchBrands, fetchNewFood]);
 
   return (
     <div className="font-poppins bg-[#f7ffe9] ">
@@ -43,7 +47,7 @@ export default function Shop() {
           alt="mushroom"
           className="absolute top-10 left-0 w-[200px] animate-bounce z-3"
         />
-        <div className="flex flex-col lg:col-span-1">
+        <div className="flex flex-col gap-4 lg:col-span-1">
           <Search
             searchCategories={searchCategories}
             setSearchCategories={setSearchCategories}
@@ -58,7 +62,7 @@ export default function Shop() {
             loadingBrands={loadingBrands}
             brands={brands}
           />
-          <NewArrivals />
+          <NewArrivals newFood={newFood} loading={loadingNewFood} />
         </div>
         <Menu />
       </div>
