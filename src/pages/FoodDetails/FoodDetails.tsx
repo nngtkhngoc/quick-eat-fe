@@ -35,24 +35,24 @@ export default function FoodDetails() {
   }, [filter_value, fetchRelatedFood]);
 
   return (
-    <div className="bg-[#f7ffe9] pb-20">
+    <div className="bg-[#f7ffe9] pb-20 ">
       <BannerLocation text="Food Details" />
-      <div className="flex flex-col lg:grid lg:grid-cols-3 lg:place-items-start relative">
+      <div className="flex flex-col lg:grid lg:grid-cols-5 lg:place-items-start relative z-10">
         <img
           src={corn}
           alt="corn"
-          className="absolute top-20 right-0 w-[130px] animate-bounce z-10"
+          className="absolute top-20 right-0 w-[130px] animate-bounce -z-5"
         />
         <img
           src={mushroom}
           alt="mushroom"
-          className="absolute top-10 left-0 w-[200px] animate-bounce z-3"
+          className="absolute top-10 left-0 w-[200px] animate-bounce -z-3"
         />
-        <div className="lg:col-span-2 ">
+        <div className="lg:col-span-3 ">
           <CurrentFood currentFood={currentFood} loading={loading} />
           <ReviewDescription currentFood={currentFood} loading={loading} />
         </div>
-        <div className="lg:col-span-1 lg:place-self-start">
+        <div className="lg:col-span-2">
           <RelatedFood relatedFood={relatedFood} loading={loading} />
         </div>
       </div>

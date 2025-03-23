@@ -82,7 +82,7 @@ export default function ReviewDescription({
   };
 
   return (
-    <div className="px-2 pt-8 gap-4 flex flex-col font-poppins lg:pl-35">
+    <div className="px-2 pt-8 gap-4 flex flex-col font-poppins lg:pl-25">
       <div className="flex flex-row gap-4 font-semibold uppercase text-zinc-500">
         {renderContent(titles)}
       </div>
