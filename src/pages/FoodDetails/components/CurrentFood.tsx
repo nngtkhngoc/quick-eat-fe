@@ -82,7 +82,7 @@ export default function CurrentFood({
       <img
         key={image}
         src={image}
-        className="w-[78px] h-[70px] object-cover rounded-[15px] cursor-pointer hover:opacity-75 transition-opacity md:w-[160px] md:h-[140px]"
+        className="w-[78px] h-[70px] object-cover rounded-[15px] cursor-pointer hover:opacity-75 transition-opacity md:h-[120px] md:w-full"
         onClick={() => setSelectedImage(image)}
       />
     ));
@@ -105,17 +105,17 @@ export default function CurrentFood({
   };
 
   return (
-    <div className="font-poppins pt-20 relative flex flex-col gap-6 lg:flex-row lg:gap-0">
-      <div className="px-4 flex flex-col gap-3 lg:pr-10 lg:pr-3">
+    <div className="font-poppins pt-20 relative flex flex-col gap-6 lg:gap-0 lg:pl-30 lg:grid lg:grid-cols-2 ">
+      <div className="px-4 flex flex-col gap-3 lg:pr-3 lg:col-span-1">
         {currentFood.image?.length > 0 && (
           <img
             src={selectedImage || currentFood.image[0]}
-            className="w-[250px] h-[220px] object-cover rounded-[15px] z-5 md:w-[500px] md:h-[440px]"
+            className="w-[250px] h-[220px] object-cover rounded-[15px] z-5 md:w-[380px] md:h-[340px]"
           />
         )}
 
         {currentFood.image?.length > 0 && (
-          <div className="w-[250px] md:w-[500px] grid grid-cols-3 gap-2">
+          <div className="w-[250px] md:w-[380px] grid grid-cols-3 gap-2">
             {renderImages(currentFood.image)}
           </div>
         )}
@@ -132,7 +132,7 @@ export default function CurrentFood({
         </div>
 
         <div className="flex flex-col ">
-          <div className="font-bold uppercase text-[37px] px-4 relative z-10 w-max after:-z-5 after:w-full after:h-1/4 after:bg-[#ece76e] after:absolute after:bottom-1 after:left-0 lg:text-[30px]">
+          <div className="font-bold uppercase text-[35px] px-3 relative z-10 w-max after:-z-5 after:w-full after:h-1/4 after:bg-[#ece76e] after:absolute after:bottom-1 after:left-0 lg:text-[30px]">
             {currentFood.name}
           </div>
           <div className="font-semibold uppercase text-[40px] text-[#00D26D] border-b border-zinc-500 lg:text-[30px]">
