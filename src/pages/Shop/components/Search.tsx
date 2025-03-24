@@ -19,6 +19,8 @@ interface SearchProps {
   setSearchBrands: React.Dispatch<React.SetStateAction<string[]>>;
   brands: { id: string; name: string }[] | null;
   loadingBrands: boolean;
+
+  // setSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Search({
@@ -39,13 +41,14 @@ export default function Search({
 }: SearchProps) {
   const handleClearAll = () => {
     setSearchBrands([]);
-    setSearchPrice([]);
+    setSearchPrice(["0", "100"]);
     setSearchAvailablity([]);
     setSearchCategories([]);
+    // setSearch(true);/
   };
 
   return (
-    <div className="bg-white flex flex-col justify-center py-3 px-8 gap-4 relative z-10 drop-shadow-xl">
+    <div className="bg-white flex flex-col justify-center py-6 px-8 gap-4 relative z-10 drop-shadow-lg">
       <SearchCategory
         searchCategories={searchCategories}
         setSearchCategories={setSearchCategories}

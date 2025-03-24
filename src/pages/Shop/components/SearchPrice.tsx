@@ -11,7 +11,7 @@ export default function SearchPrice({
   searchPrice,
 }: SearchPriceProps) {
   const minDistance = 10;
-  const [value, setValue] = useState<number[]>([20, 37]);
+  const [value, setValue] = useState<number[]>([0, 100]);
 
   useEffect(() => {
     setSearchPrice(value.map(String));
@@ -48,7 +48,7 @@ export default function SearchPrice({
           {value.map((price, index) => (
             <div className="flex flex-row gap-2">
               <div>${price}</div>
-              <div>{index !== searchPrice.length - 1 && <div>-</div>}</div>
+              <div>{index !== 1 && <div>-</div>}</div>
             </div>
           ))}
         </div>

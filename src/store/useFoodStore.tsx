@@ -50,19 +50,29 @@ interface category {
 }
 
 interface FoodStore {
+  fetchFood: (id: string) => Promise<void>;
   currentFood: food | null;
   loading: boolean;
 
   relatedFood: food[];
-  fetchFood: (id: string) => Promise<void>;
-  fetchRelatedFood: (
-    limit: number,
-    page: number,
-    filter_value: string[]
-  ) => Promise<void>;
+  fetchRelatedFood: (params: FetchFoodParams) => Promise<void>;
+  loadingRelatedFood: boolean;
 
   newFood: food[];
   fetchNewFood: () => Promise<void>;
+}
+
+interface FetchFoodParams {
+  limit?: number;
+  page?: number;
+  tags?: string[];
+  brands?: string[];
+  categories?: string[];
+  availability?: string[];
+  sort?: string;
+  order?: string;
+  maxPrice?: string;
+  minPrice?: string;
 }
 
 const BASE_URL = "http://localhost:5001/api";
@@ -73,6 +83,7 @@ export const useFoodStore = create<FoodStore>((set) => ({
   currentFood: null,
   loading: false,
   newFood: [],
+  loadingRelatedFood: false,
 
   fetchFood: async (id: string) => {
     set({ loading: true });
@@ -91,20 +102,59 @@ export const useFoodStore = create<FoodStore>((set) => ({
     set({ loading: false });
   },
 
-  fetchRelatedFood: async (
-    limit: number,
-    page: number,
-    filter_value: string[]
-  ) => {
-    set({ loading: true });
+  fetchRelatedFood: async ({
+    limit,
+    page,
+    tags,
+    brands,
+    categories,
+    availability,
+    sort,
+    order,
+    maxPrice,
+    minPrice,
+  }: FetchFoodParams) => {
+    set({ loadingRelatedFood: true });
     try {
-      const response = await fetch(
-        `${BASE_URL}/food?limit=${limit}&page=${page}&filter_value=${filter_value.join(
-          ","
-        )}`
-      );
+      const queryParams: Record<string, string> = {};
+
+      if (limit) {
+        queryParams["limit"] = limit.toString();
+      }
+      if (page) {
+        queryParams["page"] = page.toString();
+      }
+      if (tags?.length) {
+        queryParams["tag"] = tags.join(",");
+      }
+      if (brands?.length) {
+        queryParams["brand"] = brands.join(",");
+      }
+      if (categories?.length) {
+        queryParams["category"] = categories.join(",");
+      }
+      if (availability?.length) {
+        queryParams["availability"] = availability.join(",");
+      }
+      if (sort) {
+        queryParams["sort"] = sort;
+      }
+      if (order) {
+        queryParams["order"] = order;
+      }
+      if (maxPrice) {
+        queryParams["maxPrice"] = maxPrice;
+      }
+      if (minPrice) {
+        queryParams["minPrice"] = minPrice;
+      }
+
+      const queryString = new URLSearchParams(queryParams).toString();
+
+      const response = await fetch(`${BASE_URL}/food?${queryString}`);
 
       const data = await response.json();
+      console.log(data);
 
       if (data.success) {
         set({ relatedFood: data.data });
@@ -112,7 +162,7 @@ export const useFoodStore = create<FoodStore>((set) => ({
     } catch (error) {
       console.log("Error fetching related food", error);
     }
-    set({ loading: false });
+    set({ loadingRelatedFood: false });
   },
 
   fetchNewFood: async () => {

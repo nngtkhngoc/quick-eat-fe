@@ -9,8 +9,14 @@ import corn from "../../assets/images/img1.png";
 import mushroom from "../../assets/images/img2.png";
 
 export default function FoodDetails() {
-  const { fetchFood, loading, currentFood, fetchRelatedFood, relatedFood } =
-    useFoodStore();
+  const {
+    fetchFood,
+    loading,
+    currentFood,
+    fetchRelatedFood,
+    loadingRelatedFood,
+    relatedFood,
+  } = useFoodStore();
   const { id } = useParams();
 
   useEffect(() => {
@@ -19,20 +25,20 @@ export default function FoodDetails() {
 
   const LIMIT = 4,
     PAGE = 1;
-  const [filter_value, setFilterValue] = useState<string[]>([]);
+  const [searchTags, setSearchTags] = useState<string[]>([]);
 
   useEffect(() => {
     if (currentFood) {
       const tags = currentFood.food_tags.map((tag) => tag.tag.name);
-      setFilterValue(tags);
+      setSearchTags(tags);
     }
   }, [currentFood]);
 
   useEffect(() => {
-    if (filter_value.length > 0) {
-      fetchRelatedFood(LIMIT, PAGE, filter_value);
+    if (searchTags.length > 0) {
+      fetchRelatedFood({ limit: LIMIT, page: PAGE, tags: searchTags });
     }
-  }, [filter_value, fetchRelatedFood]);
+  }, [searchTags, fetchRelatedFood]);
 
   return (
     <div className="bg-[#f7ffe9] pb-20 ">
@@ -53,7 +59,7 @@ export default function FoodDetails() {
           <ReviewDescription currentFood={currentFood} loading={loading} />
         </div>
         <div className="lg:col-span-2">
-          <RelatedFood relatedFood={relatedFood} loading={loading} />
+          <RelatedFood relatedFood={relatedFood} loading={loadingRelatedFood} />
         </div>
       </div>
     </div>

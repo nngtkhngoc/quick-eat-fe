@@ -12,8 +12,9 @@ import { useFoodStore } from "../../store/useFoodStore";
 export default function Shop() {
   const [searchCategories, setSearchCategories] = useState<string[]>([]);
   const [searchAvailablity, setSearchAvailablity] = useState<string[]>([]);
-  const [searchPrice, setSearchPrice] = useState<string[]>([]);
+  const [searchPrice, setSearchPrice] = useState<string[]>(["0", "100"]);
   const [searchBrands, setSearchBrands] = useState<string[]>([]);
+  // const [search, setSearch] = useState<boolean>(false);
 
   const {
     fetchCategories,
@@ -23,7 +24,14 @@ export default function Shop() {
 
   const { fetchBrands, loading: loadingBrands, brands } = useBrandStore();
 
-  const { fetchNewFood, newFood, loading: loadingNewFood } = useFoodStore();
+  const {
+    fetchNewFood,
+    newFood,
+    loading: loadingNewFood,
+    relatedFood,
+    fetchRelatedFood,
+    loadingRelatedFood,
+  } = useFoodStore();
 
   const limit = 5,
     page = 1;
@@ -32,6 +40,29 @@ export default function Shop() {
     fetchBrands(limit, page);
     fetchNewFood();
   }, [fetchCategories, fetchBrands, fetchNewFood]);
+
+  const limit_menu = 20,
+    page_menu = 1;
+  useEffect(() => {
+    console.log(searchCategories);
+    fetchRelatedFood({
+      limit: limit_menu,
+      page: page_menu,
+      categories: searchCategories,
+      brands: searchBrands,
+      availability: searchAvailablity,
+      minPrice: searchPrice[0],
+      maxPrice: searchPrice[1],
+    });
+
+    // console.log(relatedFood);
+  }, [
+    searchCategories,
+    searchBrands,
+    searchAvailablity,
+    searchPrice,
+    fetchRelatedFood,
+  ]);
 
   return (
     <div className="font-poppins bg-[#f7ffe9] ">
@@ -61,10 +92,11 @@ export default function Shop() {
             setSearchBrands={setSearchBrands}
             loadingBrands={loadingBrands}
             brands={brands}
+            // setSearch={setSearch}
           />
           <NewArrivals newFood={newFood} loading={loadingNewFood} />
         </div>
-        <Menu />
+        <Menu food={relatedFood} loading={loadingRelatedFood} />
       </div>
     </div>
   );
