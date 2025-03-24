@@ -154,7 +154,6 @@ export const useFoodStore = create<FoodStore>((set) => ({
       const response = await fetch(`${BASE_URL}/food?${queryString}`);
 
       const data = await response.json();
-      console.log(data);
 
       if (data.success) {
         set({ relatedFood: data.data });

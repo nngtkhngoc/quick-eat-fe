@@ -14,7 +14,6 @@ export default function Shop() {
   const [searchAvailablity, setSearchAvailablity] = useState<string[]>([]);
   const [searchPrice, setSearchPrice] = useState<string[]>(["0", "100"]);
   const [searchBrands, setSearchBrands] = useState<string[]>([]);
-  // const [search, setSearch] = useState<boolean>(false);
 
   const {
     fetchCategories,
@@ -54,8 +53,6 @@ export default function Shop() {
       minPrice: searchPrice[0],
       maxPrice: searchPrice[1],
     });
-
-    // console.log(relatedFood);
   }, [
     searchCategories,
     searchBrands,
@@ -65,9 +62,9 @@ export default function Shop() {
   ]);
 
   return (
-    <div className="font-poppins bg-[#f7ffe9] ">
+    <div className="font-poppins bg-[#f7ffe9] pb-10">
       <BannerLocation text="Shop" />
-      <div className="flex flex-col lg:grid lg:grid-cols-5 lg:px-20 px-4 relative">
+      <div className="flex flex-col lg:grid lg:grid-cols-4 lg:px-20 px-4 relative">
         <img
           src={corn}
           alt="corn"
@@ -78,7 +75,7 @@ export default function Shop() {
           alt="mushroom"
           className="absolute top-10 left-0 w-[200px] animate-bounce z-3"
         />
-        <div className="flex flex-col gap-4 lg:col-span-1">
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:flex lg:flex-col lg:col-span-1">
           <Search
             searchCategories={searchCategories}
             setSearchCategories={setSearchCategories}
@@ -86,17 +83,17 @@ export default function Shop() {
             categories={categories}
             searchAvailablity={searchAvailablity}
             setSearchAvailablity={setSearchAvailablity}
-            searchPrice={searchPrice}
             setSearchPrice={setSearchPrice}
             searchBrands={searchBrands}
             setSearchBrands={setSearchBrands}
             loadingBrands={loadingBrands}
             brands={brands}
-            // setSearch={setSearch}
           />
           <NewArrivals newFood={newFood} loading={loadingNewFood} />
         </div>
-        <Menu food={relatedFood} loading={loadingRelatedFood} />
+        <div className="lg:col-span-3">
+          <Menu food={relatedFood} loading={loadingRelatedFood} />
+        </div>
       </div>
     </div>
   );

@@ -12,15 +12,12 @@ interface SearchProps {
   searchAvailablity: string[];
   setSearchAvailablity: React.Dispatch<React.SetStateAction<string[]>>;
 
-  searchPrice: string[];
   setSearchPrice: React.Dispatch<React.SetStateAction<string[]>>;
 
   searchBrands: string[];
   setSearchBrands: React.Dispatch<React.SetStateAction<string[]>>;
   brands: { id: string; name: string }[] | null;
   loadingBrands: boolean;
-
-  // setSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Search({
@@ -31,7 +28,7 @@ export default function Search({
 
   searchAvailablity,
   setSearchAvailablity,
-  searchPrice,
+
   setSearchPrice,
 
   searchBrands,
@@ -44,11 +41,10 @@ export default function Search({
     setSearchPrice(["0", "100"]);
     setSearchAvailablity([]);
     setSearchCategories([]);
-    // setSearch(true);/
   };
 
   return (
-    <div className="bg-white flex flex-col justify-center py-6 px-8 gap-4 relative z-10 drop-shadow-lg">
+    <div className="bg-white flex flex-col justify-center py-6 px-8 gap-4 relative z-10 drop-shadow-lg ">
       <SearchCategory
         searchCategories={searchCategories}
         setSearchCategories={setSearchCategories}
@@ -61,7 +57,7 @@ export default function Search({
         searchAvailablity={searchAvailablity}
       />
 
-      <SearchPrice setSearchPrice={setSearchPrice} searchPrice={searchPrice} />
+      <SearchPrice setSearchPrice={setSearchPrice} />
 
       <SearchBrand
         searchBrands={searchBrands}

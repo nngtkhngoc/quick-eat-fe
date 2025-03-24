@@ -3,13 +3,9 @@ import { useEffect, useState } from "react";
 
 interface SearchPriceProps {
   setSearchPrice: React.Dispatch<React.SetStateAction<string[]>>;
-  searchPrice: string[];
 }
 
-export default function SearchPrice({
-  setSearchPrice,
-  searchPrice,
-}: SearchPriceProps) {
+export default function SearchPrice({ setSearchPrice }: SearchPriceProps) {
   const minDistance = 10;
   const [value, setValue] = useState<number[]>([0, 100]);
 
