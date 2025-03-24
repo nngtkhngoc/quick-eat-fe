@@ -14,6 +14,7 @@ export default function Shop() {
   const [searchAvailablity, setSearchAvailablity] = useState<string[]>([]);
   const [searchPrice, setSearchPrice] = useState<string[]>(["0", "100"]);
   const [searchBrands, setSearchBrands] = useState<string[]>([]);
+  const [menuPage, setMenuPage] = useState(1);
 
   const {
     fetchCategories,
@@ -40,13 +41,11 @@ export default function Shop() {
     fetchNewFood();
   }, [fetchCategories, fetchBrands, fetchNewFood]);
 
-  const limit_menu = 20,
-    page_menu = 1;
+  const limit_menu = 14;
   useEffect(() => {
-    console.log(searchCategories);
     fetchRelatedFood({
       limit: limit_menu,
-      page: page_menu,
+      page: menuPage,
       categories: searchCategories,
       brands: searchBrands,
       availability: searchAvailablity,
@@ -54,6 +53,7 @@ export default function Shop() {
       maxPrice: searchPrice[1],
     });
   }, [
+    menuPage,
     searchCategories,
     searchBrands,
     searchAvailablity,
@@ -92,7 +92,12 @@ export default function Shop() {
           <NewArrivals newFood={newFood} loading={loadingNewFood} />
         </div>
         <div className="lg:col-span-3">
-          <Menu food={relatedFood} loading={loadingRelatedFood} />
+          <Menu
+            food={relatedFood}
+            loading={loadingRelatedFood}
+            setMenuPage={setMenuPage}
+            menuPage={menuPage}
+          />
         </div>
       </div>
     </div>

@@ -36,7 +36,12 @@ export default function FoodDetails() {
 
   useEffect(() => {
     if (searchTags.length > 0) {
-      fetchRelatedFood({ limit: LIMIT, page: PAGE, tags: searchTags });
+      fetchRelatedFood({
+        limit: LIMIT,
+        page: PAGE,
+        tags: searchTags,
+        sort: "created_at",
+      });
     }
   }, [searchTags, fetchRelatedFood]);
 
