@@ -73,6 +73,7 @@ export default function Menu({
 
   const handleOnChange = (pageNum: number) => {
     setMenuPage(pageNum);
+    window.scrollTo({ top: 250 });
   };
 
   return (
@@ -91,6 +92,9 @@ export default function Menu({
               colorText: "rgb(0, 0, 0)",
               colorPrimary: "rgb(255, 255, 255)",
               fontFamily: "sans-serif",
+              fontSize: 18,
+              borderRadius: 0,
+              controlHeight: 42,
               itemBg: "#f7ffe9",
             },
           },
@@ -101,7 +105,7 @@ export default function Menu({
           current={menuPage}
           total={50}
           onChange={handleOnChange}
-          className="!text-gray-800 !bg-[#f7ffe9] "
+          className="!text-gray-800 !bg-[#f7ffe9]"
         />
       </ConfigProvider>
     </div>

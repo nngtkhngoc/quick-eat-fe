@@ -62,7 +62,7 @@ export default function Home() {
     <div className="font-poppins mt-[80px]">
       <Banner />
 
-      <div className="bg-gray-200 pt-5 dark:bg-gray-500">
+      <div className="bg-zinc-100 pt-5 dark:bg-zinc-500">
         <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5 p-5 lg:gap-1 lg:place-items-center md:-top-[120px] relative">
           {renderServiceCards(serviceCards)}
         </div>

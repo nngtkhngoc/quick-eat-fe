@@ -53,7 +53,7 @@ export default function FoodOverall({ food }: { food: food }) {
   return (
     <Link
       to={`/food/${food.id}`}
-      className="flex flex-col gap-3 bg-white p-7 rounded-[25px] border-[#a6cf6b] border lg:flex-row lg:h-[180px] lg:px-4 w-full overflow-hidden"
+      className="flex flex-col gap-3 bg-white p-7 rounded-[25px] border-[#a6cf6b] border lg:flex-row lg:h-[180px] lg:px-4 w-full"
       key={food.id}
     >
       <img
