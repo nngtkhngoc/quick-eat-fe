@@ -6,6 +6,12 @@ import service3 from "../../assets/images/service3.png";
 import HowItWorks from "./components/HowItWorks";
 import Button from "../../components/Button";
 import Menu from "./components/Menu";
+import Featured from "./components/Featured";
+import { useEffect } from "react";
+import { useFoodStore } from "../../store/useFoodStore";
+
+const LIMIT = 10,
+  PAGE = 1;
 
 interface serviceCard {
   title: string;
@@ -58,6 +64,15 @@ export default function Home() {
     ));
   };
 
+  const { fetchRelatedFood, relatedFood, loadingRelatedFood } = useFoodStore();
+  // const [featuredFood, setFeaturedFood] = useState([]);
+
+  useEffect(() => {
+    fetchRelatedFood({ limit: LIMIT, page: PAGE });
+  }, [fetchRelatedFood]);
+
+  useEffect(() => {});
+
   return (
     <div className="font-poppins mt-[80px]">
       <Banner />
@@ -75,7 +90,15 @@ export default function Home() {
           <Button text="Order Now!" />
         </div>
 
-        <Menu />
+        <Menu
+          relatedFood={relatedFood}
+          loadingRelatedFood={loadingRelatedFood}
+        />
+
+        <Featured
+          relatedFood={relatedFood}
+          loadingRelatedFood={loadingRelatedFood}
+        />
       </div>
     </div>
   );

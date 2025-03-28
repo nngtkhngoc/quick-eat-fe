@@ -1,9 +1,6 @@
 import Button from "../../../components/Button";
 import cooking from "../../../assets/images/cooking.png";
-import { useFoodStore } from "../../../store/useFoodStore";
-import { useEffect } from "react";
 import FoodOverall from "../../../components/FoodOverall";
-
 interface food {
   id: string;
   name: string;
@@ -53,23 +50,20 @@ interface category {
   category: { name: string };
 }
 
-const LIMIT = 10,
-  PAGE = 1;
-
-export default function Menu() {
-  const { fetchRelatedFood, relatedFood, loadingRelatedFood } = useFoodStore();
-
-  useEffect(() => {
-    fetchRelatedFood({ limit: LIMIT, page: PAGE });
-  }, [fetchRelatedFood]);
+export default function Menu({
+  relatedFood,
+  loadingRelatedFood,
+}: {
+  relatedFood: food[];
+  loadingRelatedFood: boolean;
+}) {
+  const renderMenu = (food: food[]) => {
+    return food.map((f) => <FoodOverall food={f} />);
+  };
 
   if (loadingRelatedFood || !relatedFood) {
     return <div>Loading...</div>;
   }
-
-  const renderMenu = (food: food[]) => {
-    return food.map((f) => <FoodOverall food={f} />);
-  };
 
   return (
     <div className="w-full bg-yellow-200 grid lg:grid-cols-2 lg:h-[850px] ">
@@ -104,7 +98,7 @@ export default function Menu() {
         <img src={cooking} />
       </div>
 
-      <div className="lg:col-span-1 p-3 px-25 flex flex-col gap-4 overflow-y-scroll h-full bg-[#f7ffe9]">
+      <div className="lg:col-span-1 p-3 lg:px-25 md:px-50 flex flex-col gap-4 overflow-y-scroll h-full bg-[#f7ffe9]">
         <div className="text-[35px] font-bold uppercase">Our Menu</div>
         {relatedFood && relatedFood.length > 0 && renderMenu(relatedFood)}
       </div>
