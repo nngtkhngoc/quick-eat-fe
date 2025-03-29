@@ -5,6 +5,7 @@ import sideback from "../../assets/images/sideback.png";
 import { useState } from "react";
 import SignIn from "./components/Signin";
 import SignUp from "./components/Signup";
+import google from "../../assets/images/google.png";
 
 export default function Authentication() {
   const [content, setContent] = useState("signin");
@@ -59,8 +60,15 @@ export default function Authentication() {
                 Sign Up
               </div>
             </div>
+            <div className="w-full px-12 flex flex-col justify-center items-center gap-2">
+              <button className="border-zinc-300 border text-[14px] font-semibold py-3 w-full flex flex-row gap-3 items-center justify-center">
+                <img src={google} alt="google" />
+                Sign Up with Google
+              </button>
+              <div className="text-zinc-300 text-[13px]">Or</div>
 
-            {content == "signin" ? <SignIn /> : <SignUp />}
+              {content == "signin" ? <SignIn /> : <SignUp />}
+            </div>
           </div>
         </div>
       </div>
