@@ -4,6 +4,8 @@ import Layout from "./components/layout.tsx";
 import About from "./pages/About/About.tsx";
 import FoodDetails from "./pages/FoodDetails/FoodDetails.tsx";
 import Shop from "./pages/Shop/Shop.tsx";
+import ChefList from "./pages/ChefList/ChefList.tsx";
+import ChefDetails from "./pages/ChefDetails/ChefDetails.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,8 @@ const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/food/:id", element: <FoodDetails /> },
       { path: "/shop", element: <Shop /> },
+      { path: "/chef", element: <ChefList /> },
+      { path: "/chef/:id", element: <ChefDetails /> },
     ],
   },
 ]);

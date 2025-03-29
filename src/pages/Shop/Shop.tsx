@@ -31,6 +31,7 @@ export default function Shop() {
     relatedFood,
     fetchRelatedFood,
     loadingRelatedFood,
+    totalRelatedFood,
   } = useFoodStore();
 
   const limit = 5,
@@ -97,6 +98,7 @@ export default function Shop() {
             loading={loadingRelatedFood}
             setMenuPage={setMenuPage}
             menuPage={menuPage}
+            totalRelatedFood={totalRelatedFood}
           />
         </div>
       </div>

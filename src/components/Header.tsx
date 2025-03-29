@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Menu, ShoppingCart, UserCircle } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
 import Logo from "./Logo";
 
 interface option {
@@ -41,7 +40,7 @@ export default function Header() {
     <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black">
       <div className=" h-full px-10 flex flex-row items-center justify-between  w-full">
         <div className="flex flex-row items-center gap-9 font-poppins">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <Logo color="text-black dark:text-white" />
         </div>
         {/*Desktop navigation*/}

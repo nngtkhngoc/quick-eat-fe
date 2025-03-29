@@ -65,7 +65,6 @@ export default function Home() {
   };
 
   const { fetchRelatedFood, relatedFood, loadingRelatedFood } = useFoodStore();
-  // const [featuredFood, setFeaturedFood] = useState([]);
 
   useEffect(() => {
     fetchRelatedFood({ limit: LIMIT, page: PAGE });

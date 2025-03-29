@@ -55,6 +55,7 @@ interface MenuProps {
   loading: boolean;
   setMenuPage: React.Dispatch<React.SetStateAction<number>>;
   menuPage: number;
+  totalRelatedFood: number;
 }
 
 export default function Menu({
@@ -62,6 +63,7 @@ export default function Menu({
   loading,
   setMenuPage,
   menuPage,
+  totalRelatedFood,
 }: MenuProps) {
   if (loading || !food) {
     return <div>Loading...</div>;
@@ -103,7 +105,8 @@ export default function Menu({
         <Pagination
           align="center"
           current={menuPage}
-          total={50}
+          total={totalRelatedFood}
+          defaultPageSize={14}
           onChange={handleOnChange}
           className="!text-gray-800 !bg-[#f7ffe9]"
         />

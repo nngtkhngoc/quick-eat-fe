@@ -57,6 +57,7 @@ interface FoodStore {
   relatedFood: food[];
   fetchRelatedFood: (params: FetchFoodParams) => Promise<void>;
   loadingRelatedFood: boolean;
+  totalRelatedFood: number;
 
   newFood: food[];
   fetchNewFood: () => Promise<void>;
@@ -84,6 +85,7 @@ export const useFoodStore = create<FoodStore>((set) => ({
   loading: false,
   newFood: [],
   loadingRelatedFood: false,
+  totalRelatedFood: 0,
 
   fetchFood: async (id: string) => {
     set({ loading: true });
@@ -157,6 +159,7 @@ export const useFoodStore = create<FoodStore>((set) => ({
 
       if (data.success) {
         set({ relatedFood: data.data });
+        set({ totalRelatedFood: data.total });
       }
     } catch (error) {
       console.log("Error fetching related food", error);
