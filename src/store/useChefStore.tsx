@@ -21,6 +21,7 @@ interface chefStore {
   totalChef: number;
   chefDetails: chef | null;
   loadingChefDetails: boolean;
+  fetchChefDetails: (id: string) => Promise<void>;
 }
 
 const BASE_URL = "http://localhost:5001/api";
@@ -63,5 +64,19 @@ export const useChefStore = create<chefStore>((set) => ({
     }
 
     set({ loadingChef: false });
+  },
+  fetchChefDetails: async (id: string) => {
+    set({ loadingChefDetails: true });
+    try {
+      const response = await fetch(`${BASE_URL}/cook/${id}`);
+      const data = await response.json();
+
+      if (data.success) {
+        set({ chefDetails: data.data });
+      }
+    } catch (error) {
+      console.log("Error fetching detail chef:", error);
+    }
+    set({ loadingChefDetails: false });
   },
 }));

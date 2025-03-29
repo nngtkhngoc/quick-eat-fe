@@ -50,16 +50,22 @@ interface category {
 export default function RelatedFood({
   relatedFood,
   loading,
+  id,
 }: {
   relatedFood: food[];
   loading: boolean;
+  id: string | undefined;
 }) {
   if (!relatedFood || loading) {
     return <div>Loading...</div>;
   }
 
   const renderFood = (relatedFood: food[]) => {
-    return relatedFood.map((food) => <FoodOverall food={food} />);
+    return relatedFood
+      .filter((food) => food.id !== id)
+      .map((food, index) => {
+        if (index <= 3) return <FoodOverall food={food} />;
+      });
   };
 
   return (

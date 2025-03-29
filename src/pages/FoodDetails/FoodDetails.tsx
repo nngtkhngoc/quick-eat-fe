@@ -23,7 +23,7 @@ export default function FoodDetails() {
     if (id) fetchFood(id);
   }, [fetchFood, id]);
 
-  const LIMIT = 4,
+  const LIMIT = 5,
     PAGE = 1;
   const [searchTags, setSearchTags] = useState<string[]>([]);
 
@@ -64,7 +64,11 @@ export default function FoodDetails() {
           <ReviewDescription currentFood={currentFood} loading={loading} />
         </div>
         <div className="lg:col-span-1">
-          <RelatedFood relatedFood={relatedFood} loading={loadingRelatedFood} />
+          <RelatedFood
+            relatedFood={relatedFood}
+            loading={loadingRelatedFood}
+            id={id}
+          />
         </div>
       </div>
     </div>

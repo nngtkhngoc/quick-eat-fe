@@ -34,9 +34,9 @@ export default function ChefList() {
   };
 
   return (
-    <div className="pt-[80px] pb-5 bg-[#f6fee8]">
+    <div className="py-[80px] bg-[#f6fee8]">
       <BannerLocation text="CHEFT LISTING" />
-      <div className="flex flex-col gap-40 pt-30 justify-center items-center md:grid md:grid-cols-2 md:gap-x-0 md:px-3 md:place-items-center lg:grid-cols-4 pb-5 ">
+      <div className="flex flex-col gap-40 pt-30 justify-center items-center md:grid md:grid-cols-2 md:gap-x-0 md:px-3 md:place-items-center lg:grid-cols-4 pb-15">
         {renderChef(chef)}
       </div>
       <ConfigProvider

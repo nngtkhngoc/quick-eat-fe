@@ -24,12 +24,14 @@ export default function ChefOverall({ chef }: { chef: chef }) {
         />
       </div>
 
-      <div className="pt-20 flex flex-col items-center justify-center text-center gap-5 w-[330px] h-[460px] px-10 text-white bg-zinc-900">
+      <div className="pt-20 flex flex-col items-center justify-center text-center gap-5 w-[300px] h-[460px] px-10 text-white bg-zinc-900">
         <div className="capitalize font-bold text-[30px] h-[80px]  group-hover:text-yellow-200 transition-all duration-500 flex justify-center items-center">
           {chef.name}
         </div>
 
-        <div className="font-semibold text-[16px]">{chef.level}</div>
+        <div className="font-semibold text-[16px] capitalize">
+          {chef.level} chef
+        </div>
 
         <div className="text-[15px] h-[71px] overflow-hidden line-clamp-3">
           {chef.description}
