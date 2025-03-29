@@ -49,7 +49,9 @@ export default function Header() {
         </div>
         <div className="hidden md:flex space-x-5 cursor-pointer">
           <ShoppingCart className="w-7 h-7" />
-          <UserCircle className="w-7 h-7" />
+          <Link to="/auth">
+            <UserCircle className="w-7 h-7" />
+          </Link>
         </div>
         {/* Mobile/Tablet Menu Button */}
         <div className="md:hidden">

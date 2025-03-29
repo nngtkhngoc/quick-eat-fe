@@ -6,6 +6,7 @@ import FoodDetails from "./pages/FoodDetails/FoodDetails.tsx";
 import Shop from "./pages/Shop/Shop.tsx";
 import ChefList from "./pages/ChefList/ChefList.tsx";
 import ChefDetails from "./pages/ChefDetails/ChefDetails.tsx";
+import Authentication from "./pages/Authentication/Authentication.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: "/shop", element: <Shop /> },
       { path: "/chef", element: <ChefList /> },
       { path: "/chef/:id", element: <ChefDetails /> },
+      { path: "/auth", element: <Authentication /> },
     ],
   },
 ]);
