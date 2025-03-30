@@ -9,7 +9,7 @@ export const useReviewStore = create((set) => ({
   fetchReviews: async (id: string) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${BASE_URL}/reviews/${id}`);
+      const response = await fetch(`${BASE_URL}/${id}/reviews`);
 
       const data = await response.json();
 

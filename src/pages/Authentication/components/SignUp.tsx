@@ -57,7 +57,7 @@ export default function SignUp() {
 
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 1000);
       } else {
         api.error({
           message: "SIGN UP",
