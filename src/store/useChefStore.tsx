@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import Chef from "../types/Chef";
+import Chef from "../types/chef";
 
 interface chefParams {
   limit?: number;

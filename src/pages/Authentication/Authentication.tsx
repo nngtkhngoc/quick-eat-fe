@@ -3,8 +3,8 @@ import auth from "../../assets/images/auth.jpg";
 import logo from "../../assets/images/logo.png";
 import sideback from "../../assets/images/sideback.png";
 import { useState } from "react";
-import SignIn from "./components/Signin";
-import SignUp from "./components/Signup";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 import google from "../../assets/images/google.png";
 
 export default function Authentication() {

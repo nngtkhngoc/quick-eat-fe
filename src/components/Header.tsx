@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 interface option {
   name: string;
@@ -24,11 +25,12 @@ export default function Header() {
     { name: "Blog", path: "/blog" },
   ];
 
-  const token = localStorage.getItem("token");
+  const { user, signOut } = useAuthStore();
+
   const [openToggle, setOpenToggle] = useState(false);
   const nav = useNavigate();
   const handlOpenToggle = () => {
-    if (!token) {
+    if (!user) {
       nav("/auth");
     } else {
       setOpenToggle(!openToggle);
@@ -49,8 +51,8 @@ export default function Header() {
   };
 
   const handleLogOut = () => {
-    localStorage.clear();
     setOpenToggle(false);
+    signOut();
   };
 
   return (

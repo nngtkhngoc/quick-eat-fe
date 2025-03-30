@@ -2,6 +2,7 @@ import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 export default function SignIn() {
   const [visiblePassword, setVisiblePassword] = useState(false);
@@ -11,50 +12,27 @@ export default function SignIn() {
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  const [loadingSignIn, setLoadingSignIn] = useState(false);
+  const { signIn, errorAuth, loadingUser } = useAuthStore();
 
-  const BASE_URL = "http://localhost:5001/api";
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
-  const handSignIn = async () => {
-    setLoadingSignIn(true);
-    try {
-      const response = await fetch(`${BASE_URL}/users/signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier,
-          password,
-        }),
+  const handSignIn = () => {
+    signIn(identifier, password);
+
+    if (errorAuth) {
+      api.error({
+        message: "SIGN IN",
+        description: errorAuth,
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-
-        api.success({
-          message: "SIGN IN",
-          description: "Sign in successfully!",
-          duration: 0,
-        });
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      } else {
-        api.error({
-          message: "SIGN IN",
-          description: data.message,
-          duration: 0,
-        });
-      }
-    } catch (error) {
-      console.log("Error signing in", error);
+    } else {
+      api.success({
+        message: "SIGN IN",
+        description: "Sign in successfully",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
-    setLoadingSignIn(false);
   };
 
   return (
@@ -115,7 +93,7 @@ export default function SignIn() {
         className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
         onClick={handSignIn}
       >
-        {loadingSignIn ? "Loading..." : "SIGN IN"}
+        {loadingUser ? "Loading..." : "SIGN IN"}
       </button>
     </div>
   );
