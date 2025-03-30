@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Menu, ShoppingCart, UserCircle } from "lucide-react";
+import { LogOutIcon, Menu, ShoppingCart, User, UserCircle } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import { useNavigate } from "react-router-dom";
 
 interface option {
   name: string;
@@ -11,8 +12,7 @@ interface option {
 
 export default function Header() {
   const [openSidebar, setOpenSidebar] = useState(false);
-
-  const handleOnClick = () => {
+  const handleOpenSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
 
@@ -23,6 +23,18 @@ export default function Header() {
     { name: "Chef", path: "/chef" },
     { name: "Blog", path: "/blog" },
   ];
+
+  const token = localStorage.getItem("token");
+  const [openToggle, setOpenToggle] = useState(false);
+  const nav = useNavigate();
+  const handlOpenToggle = () => {
+    if (!token) {
+      nav("/auth");
+    } else {
+      setOpenToggle(!openToggle);
+    }
+  };
+
   const renderOptions = (options: option[]) => {
     return options.map((option) => (
       <Link
@@ -34,6 +46,11 @@ export default function Header() {
         <hr className="w-10 h-[1.5px] bg-gray-500 mx-auto scale-x-0 group-hover:scale-x-100 group-hover:text-red-600 transition-transform duration-300" />
       </Link>
     ));
+  };
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    setOpenToggle(false);
   };
 
   return (
@@ -49,9 +66,22 @@ export default function Header() {
         </div>
         <div className="hidden md:flex space-x-5 cursor-pointer">
           <ShoppingCart className="w-7 h-7" />
-          <Link to="/auth">
-            <UserCircle className="w-7 h-7" />
-          </Link>
+
+          <div className="relative">
+            <UserCircle className="w-7 h-7" onClick={handlOpenToggle} />
+            {openToggle && (
+              <div className="absolute top-10 right-0 bg-white w-max drop-shadow-xl flex flex-col font-medium text-black justify-start">
+                <div className="flex flex-row border-b border-zinc-300 py-3 gap-2 px-4 hover:text-red-600 transition-all duration:500">
+                  <User className="w-5 h-5" />
+                  <div>Profile</div>
+                </div>
+                <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-1 justify-center items-center hover:text-red-600 transition-all duration:500">
+                  <LogOutIcon className="w-5 h-5" />
+                  <div onClick={handleLogOut}>Log out</div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         {/* Mobile/Tablet Menu Button */}
         <div className="md:hidden">
@@ -59,7 +89,7 @@ export default function Header() {
             color="oklch(0.577 0.245 27.325)"
             size={32}
             className="cursor-pointer"
-            onClick={handleOnClick}
+            onClick={handleOpenSidebar}
           />
         </div>
       </div>
