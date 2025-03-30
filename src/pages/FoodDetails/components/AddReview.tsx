@@ -1,19 +1,36 @@
 import { Rate } from "antd";
 import { useReviewStore } from "../../../store/useReviewStore";
 import { useState } from "react";
+import { notification } from "antd";
 
 export default function AddReview({ id }: { id: string | undefined }) {
-  const { loadingAddReview, addReviews } = useReviewStore();
+  const { loadingAddReview, addReviews, errorAddReview } = useReviewStore();
 
   const [content, setContent] = useState("");
   const [score, setScore] = useState(5);
+  const [api, contextHolder] = notification.useNotification();
 
   const handleAddReview = () => {
     addReviews(id, score, content);
+
+    if (errorAddReview) {
+      api.error({
+        message: "ADD REVIEW",
+        description: errorAddReview,
+        duration: 2,
+      });
+    } else {
+      api.success({
+        message: "ADD REVIEW",
+        description: "Add review successfully",
+        duration: 2,
+      });
+    }
   };
 
   return (
     <div className="flex flex-col gap-2">
+      {contextHolder}
       <div className="text-zinc-500 font-semibold text-[20px] capitalize">
         Add your review
       </div>

@@ -8,6 +8,7 @@ interface ReviewStore {
   loading: boolean;
   loadingAddReview: boolean;
   reviewChange: boolean;
+  errorAddReview: string | null;
 
   fetchReviews: (id: string) => Promise<void>;
 
@@ -23,6 +24,7 @@ export const useReviewStore = create<ReviewStore>((set) => ({
   reviewChange: false,
   loading: false,
   loadingAddReview: false,
+  errorAddReview: null,
 
   fetchReviews: async (id: string) => {
     set({ loading: true });
@@ -30,6 +32,7 @@ export const useReviewStore = create<ReviewStore>((set) => ({
       const response = await fetch(`${BASE_URL}/food/${id}/reviews`);
 
       const data = await response.json();
+      console.log(data);
 
       if (data.success) {
         set({ currentReviews: data.data });
@@ -64,6 +67,9 @@ export const useReviewStore = create<ReviewStore>((set) => ({
         set((state) => ({
           currentReviews: [data.data, ...state.currentReviews],
         }));
+        set({ errorAddReview: null });
+      } else {
+        set({ errorAddReview: data.message });
       }
     } catch (error) {
       console.log("Error adding reviews:", error);
