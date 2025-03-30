@@ -1,12 +1,5 @@
 import { create } from "zustand";
-
-interface chef {
-  id: string;
-  name: string;
-  profile_img: string;
-  level: string;
-  description: string;
-}
+import Chef from "../types/Chef";
 
 interface chefParams {
   limit?: number;
@@ -15,11 +8,11 @@ interface chefParams {
 }
 
 interface chefStore {
-  chef: chef[];
+  chef: Chef[];
   loadingChef: boolean;
   fetchChef: (params: chefParams) => Promise<void>;
   totalChef: number;
-  chefDetails: chef | null;
+  chefDetails: Chef | null;
   loadingChefDetails: boolean;
   fetchChefDetails: (id: string) => Promise<void>;
 }

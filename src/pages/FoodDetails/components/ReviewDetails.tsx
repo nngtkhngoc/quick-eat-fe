@@ -1,96 +1,63 @@
 import { Rate } from "antd";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import { useReviewStore } from "../../../store/useReviewStore";
+import { useEffect } from "react";
+import Food from "../../../types/food";
+import Review from "../../../types/review";
+import user from "../../../assets/images/user.png";
 
 export default function ReviewDetails({
   currentFood,
-  loading,
+  id,
 }: {
-  currentFood: food | null;
-  loading: boolean;
+  currentFood: Food | null;
+  id: string | undefined;
 }) {
-  if (!currentFood || loading) return <div>Loading...</div>;
-  const renderReviews = (reviews: review[]) => {
-    return reviews.map((review) => (
-      <div
-        className="flex flex-row items-center bg-white rounded-[5px] gap-3 p-3 shadow-lg h-[150px] truncate"
-        key={review.id}
-      >
-        <img
-          src={review.user.profile_pic}
-          alt="avt"
-          className="w-[100px] h-[100px] object-cover rounded-full"
-        />
+  const { currentReviews, fetchReviews, loading } = useReviewStore();
 
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-4 ">
-            <div>
-              <div className="font-semibold capitalize">
-                {review.user.fullname}
+  useEffect(() => {
+    if (id) fetchReviews(id);
+  }, [id, fetchReviews]);
+
+  if (!currentReviews || loading || !currentReviews)
+    return <div>Loading...</div>;
+
+  const renderReviews = (reviews: Review[]) => {
+    return reviews.map((review) => {
+      // if (!review.user) <div>Loading...</div>;
+      return (
+        <div
+          className="flex flex-row items-center bg-white rounded-[5px] gap-3 p-3 shadow-lg h-[150px] truncate"
+          key={review.id}
+        >
+          <img
+            src={review.user?.profile_pic || user}
+            alt="avt"
+            className="w-[100px] h-[100px] object-cover rounded-full"
+          />
+
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-row gap-4 ">
+              <div>
+                <div className="font-semibold capitalize">
+                  {review.user?.fullname || review.user?.username}
+                </div>
+
+                <Rate
+                  disabled
+                  defaultValue={parseInt(review.score)}
+                  style={{ fontSize: 14 }}
+                />
               </div>
+              <div className=" pt-1 text-[12px] text-zinc-600 flex justify-end">
+                {review.created_at.slice(0, 10)}
+              </div>
+            </div>
 
-              <Rate
-                disabled
-                defaultValue={review.score}
-                style={{ fontSize: 14 }}
-              />
-            </div>
-            <div className=" pt-1 text-[12px] text-zinc-600 flex justify-end">
-              {review.created_at.slice(0, 10)}
-            </div>
+            <div className="text-[14px] text-zinc-600">{review.content}</div>
           </div>
-
-          <div className="text-[14px] text-zinc-600">{review.content}</div>
         </div>
-      </div>
-    ));
+      );
+    });
   };
   return (
     <div className="flex flex-col gap-2">
@@ -99,13 +66,13 @@ export default function ReviewDetails({
       </div>
 
       <div className="flex flex-row gap-2 text-[14px] text-[#00D26D]">
-        <div>({currentFood.avg_rate}) ⭐ </div>
-        <div className="">({currentFood.reviews?.length || "0"} reviews)</div>
+        <div>({currentFood?.avg_rate}) ⭐ </div>
+        <div className="">({currentReviews?.length || "0"} reviews)</div>
       </div>
 
-      {currentFood.reviews?.length > 0 && (
+      {currentReviews?.length > 0 && (
         <div className="flex flex-col gap-2">
-          {renderReviews(currentFood.reviews)}
+          {renderReviews(currentReviews)}
         </div>
       )}
     </div>

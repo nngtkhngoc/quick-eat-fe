@@ -3,14 +3,7 @@ import { Pagination, ConfigProvider } from "antd";
 import { useEffect, useState } from "react";
 import ChefOverall from "../../components/ChefOverall";
 import BannerLocation from "../../components/BannerLocation";
-
-interface chef {
-  id: string;
-  name: string;
-  profile_img: string;
-  level: string;
-  description: string;
-}
+import Chef from "../../types/Chef";
 
 export default function ChefList() {
   const { chef, fetchChef, loadingChef, totalChef } = useChefStore();
@@ -29,7 +22,7 @@ export default function ChefList() {
     return <div className="pt-[80px]">Loading...</div>;
   }
 
-  const renderChef = (chefs: chef[]) => {
+  const renderChef = (chefs: Chef[]) => {
     return chefs.map((chef) => <ChefOverall chef={chef} />);
   };
 

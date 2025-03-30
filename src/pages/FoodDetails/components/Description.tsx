@@ -1,64 +1,17 @@
-import { Tag } from "lucide-react";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import { TagIcon } from "lucide-react";
+import Food from "../../../types/food";
+import Tag from "../../../types/tag";
 
 export default function Description({
   currentFood,
   loading,
 }: {
-  currentFood: food | null;
+  currentFood: Food | null;
   loading: boolean;
 }) {
   if (!currentFood || loading) return <div>Loading...</div>;
 
-  const renderTags = (tags: tag[]) => {
+  const renderTags = (tags: Tag[]) => {
     return tags.map((tag, index) => (
       <div className="uppercase font-semibold text-[16px]" key={tag.tag.id}>
         {tag.tag.name} {index == tags.length - 1 ? "" : " | "}
@@ -73,7 +26,7 @@ export default function Description({
       </div>
 
       <div className="flex flex-row gap-2">
-        <Tag className="text-red-600 w-[16px]" />
+        <TagIcon className="text-red-600 w-[16px]" />
         <div> | </div>
         {currentFood.food_tags?.length > 0 && renderTags(currentFood.food_tags)}
       </div>

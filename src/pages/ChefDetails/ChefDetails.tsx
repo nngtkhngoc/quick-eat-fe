@@ -4,15 +4,7 @@ import { useChefStore } from "../../store/useChefStore";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import ChefOverall from "../../components/ChefOverall";
-
-interface chef {
-  id: string;
-  name: string;
-  profile_img: string;
-  level: string;
-  description: string;
-}
-
+import Chef from "../../types/Chef";
 export default function ChefDetails() {
   const { id } = useParams();
   const {
@@ -49,7 +41,7 @@ export default function ChefDetails() {
     return <div className="pt-[80px]">Loading...</div>;
   }
 
-  const renderChef = (chefs: chef[]) => {
+  const renderChef = (chefs: Chef[]) => {
     return chefs
       .filter((chef) => chef.id !== id)
       .map((chef) => (

@@ -1,61 +1,14 @@
 import { useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import payment_card from "../../../assets/images/payment_card.png";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import Food from "../../../types/food";
+import Category from "../../../types/category";
 
 export default function CurrentFood({
   currentFood,
   loading,
 }: {
-  currentFood: food | null;
+  currentFood: Food | null;
   loading: boolean;
 }) {
   const [selectedImage, setSelectedImage] = useState("");
@@ -88,7 +41,7 @@ export default function CurrentFood({
     ));
   };
 
-  const renderCategories = (categories: category[]) => {
+  const renderCategories = (categories: Category[]) => {
     return categories.map((category, index) => (
       <div key={index}>
         {category.category.name} {index == categories.length - 1 ? "" : " | "}

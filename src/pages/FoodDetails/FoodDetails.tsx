@@ -61,7 +61,11 @@ export default function FoodDetails() {
         />
         <div className="lg:col-span-2 ">
           <CurrentFood currentFood={currentFood} loading={loading} />
-          <ReviewDescription currentFood={currentFood} loading={loading} />
+          <ReviewDescription
+            currentFood={currentFood}
+            loading={loading}
+            id={id}
+          />
         </div>
         <div className="lg:col-span-1">
           <RelatedFood

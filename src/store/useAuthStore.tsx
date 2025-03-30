@@ -1,26 +1,8 @@
 import { create } from "zustand";
-import user from "../assets/images/user.png";
-
-interface user {
-  id: string;
-  username: string;
-  email: string;
-  phone_number: string;
-  fullname: string | null;
-  profile_pic: string | null;
-}
+import User from "../types/user";
 
 interface UserStore {
-  user: user | null;
-
-  //   loadingSignUp: boolean;
-  //   signUp: (
-  //     username: string,
-  //     email: string,
-  //     phone_number: string,
-  //     password: string,
-  //     confirm_password: string
-  //   ) => Promise<void>;
+  user: User | null;
 
   loadingUser: boolean;
   fetchUser: () => Promise<void>;
