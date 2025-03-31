@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BannerLocation from "../../components/BannerLocation";
 import { useCartStore } from "../../store/useCartStore";
 import CartDetails from "../../types/CartDetails";
@@ -6,20 +6,28 @@ import { X } from "lucide-react";
 
 export default function Cart() {
   const { fetchCart, cart, loadingCart } = useCartStore();
+  const [quantities, setQuantities] = useState<number[]>([]);
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
+  useEffect(() => {
+    if (cart) {
+      const newQuantities = cart.cart_details.map((cart) => cart.quantity);
+      setQuantities(newQuantities);
+    }
+  }, [cart]);
   if (loadingCart) {
     return <div>Loading...</div>;
   }
 
-  // const [quantity, setQuantity] = u;
-
   const renderCart = (carts: CartDetails[]) => {
-    return carts.map((cart) => (
-      <div className="p-4 border-b border-dashed flex flex-row gap-3  border-zinc-500 ">
+    return carts.map((cart, index) => (
+      <div
+        className="p-4 border-b border-dashed flex flex-row gap-3  border-zinc-500 "
+        key={index}
+      >
         <img
           src={cart.food.image[0]}
           alt="food"
@@ -38,20 +46,32 @@ export default function Cart() {
             </div>
             <div>
               <button
-                // onClick={handleDecrease}
+                onClick={() => {
+                  const newQuantities = [...quantities];
+                  newQuantities[index]--;
+                  setQuantities(newQuantities);
+                }}
                 className="border-l border-t border-b border-red-600 p-1 bg-white  text-[12px] cursor-pointer lg:text-[15px]"
               >
                 -
               </button>
               <input
                 className=" w-[45px] py-1 border-t border-b border-red-600 bg-white text-center text-[12px] focus:outline-none text-red-600 lg:text-[15px]"
-                value={cart.quantity}
+                value={quantities[index]}
                 type="text"
-                // onChange={(e) => setQuantity(Number(e.target.value))}
+                onChange={(e) => {
+                  const newQuantities = [...quantities];
+                  newQuantities[index] = Number(e.target.value);
+                  setQuantities(newQuantities);
+                }}
               />
 
               <button
-                // onClick={handleIncrease}
+                onClick={() => {
+                  const newQuantities = [...quantities];
+                  newQuantities[index]++;
+                  setQuantities(newQuantities);
+                }}
                 className="border-r  border-t border-b border-red-600 p-1 bg-white cursor-pointer  text-[12px] lg:text-[15px]"
               >
                 +

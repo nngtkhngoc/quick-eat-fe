@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { Badge } from "antd";
+import { useCartStore } from "../store/useCartStore";
 
 interface option {
   name: string;
@@ -17,6 +18,7 @@ export default function Header() {
   const handleOpenSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
+  const { cart, clearCart } = useCartStore();
 
   const options = [
     { name: "Home", path: "/" },
@@ -54,6 +56,7 @@ export default function Header() {
   const handleSignOut = () => {
     setOpenToggle(false);
     signOut();
+    clearCart();
   };
 
   return (
@@ -69,8 +72,10 @@ export default function Header() {
         </div>
         <div className="hidden md:flex space-x-5 cursor-pointer">
           <div>
-            <Badge count={user?.carts?.total_quantity || 0} overflowCount={999}>
-              <ShoppingCart className="w-7 h-7 text-red-600" />
+            <Badge count={cart?.total_quantity || 0} overflowCount={999}>
+              <Link to="/cart">
+                <ShoppingCart className="w-7 h-7 text-red-600" />
+              </Link>
             </Badge>
           </div>
 

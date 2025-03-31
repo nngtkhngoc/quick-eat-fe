@@ -26,6 +26,9 @@ export default function AddReview({ id }: { id: string | undefined }) {
         duration: 2,
       });
     }
+
+    setContent("");
+    setScore(5);
   };
 
   return (
@@ -39,7 +42,7 @@ export default function AddReview({ id }: { id: string | undefined }) {
           <div className="font-semibold"> Your Rating: </div>
           <Rate
             style={{ fontSize: 15 }}
-            defaultValue={5}
+            value={score}
             onChange={(value) => {
               setScore(value);
             }}
@@ -50,6 +53,7 @@ export default function AddReview({ id }: { id: string | undefined }) {
           <textarea
             placeholder="Type Your Comment"
             className="border w-full border-zinc-400 p-4 h-[250px] focus:outline-none"
+            value={content}
             onChange={(e) => {
               setContent(e.target.value);
             }}

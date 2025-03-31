@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Food from "../types/food";
+import Food from "../types/Food";
 
 export default function FoodOverall({ food }: { food: Food }) {
   return (

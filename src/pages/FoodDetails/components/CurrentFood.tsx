@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import payment_card from "../../../assets/images/payment_card.png";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 import Category from "../../../types/Category";
+import { useCartStore } from "../../../store/useCartStore";
 
 export default function CurrentFood({
   currentFood,
@@ -13,6 +14,7 @@ export default function CurrentFood({
 }) {
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const { addToCart, loadingCart } = useCartStore();
 
   if (loading || !currentFood) {
     return (
@@ -55,6 +57,10 @@ export default function CurrentFood({
 
   const handleDecrease = () => {
     setQuantity(quantity - 1);
+  };
+
+  const handleAddToCart = () => {
+    addToCart(currentFood.id, quantity);
   };
 
   return (
@@ -127,8 +133,11 @@ export default function CurrentFood({
             </button>
           </div>
 
-          <button className=" relative bg-red-600 w-max lg:text-[16px] py-2 px-11 font-poppins border-transparent text-white text-semibold text-[17px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500 border border-white">
-            Add
+          <button
+            onClick={handleAddToCart}
+            className=" relative bg-red-600 w-max lg:text-[16px] py-2 px-11 font-poppins border-transparent text-white text-semibold text-[17px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500 border border-white"
+          >
+            {loadingCart ? "Loading..." : "Add"}
           </button>
         </div>
 
