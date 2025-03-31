@@ -3,7 +3,7 @@ import { Pagination, ConfigProvider } from "antd";
 import { useEffect, useState } from "react";
 import ChefOverall from "../../components/ChefOverall";
 import BannerLocation from "../../components/BannerLocation";
-import Chef from "../../types/Chef";
+import Chef from "../../types/chef";
 
 export default function ChefList() {
   const { chef, fetchChef, loadingChef, totalChef } = useChefStore();
@@ -27,7 +27,7 @@ export default function ChefList() {
   };
 
   return (
-    <div className="py-[80px] bg-[#f6fee8]">
+    <div className="py-[80px] bg-[#f6fee8] pt-[80px]">
       <BannerLocation text="CHEFT LISTING" />
       <div className="flex flex-col gap-40 pt-30 justify-center items-center md:grid md:grid-cols-2 md:gap-x-0 md:px-3 md:place-items-center lg:grid-cols-4 pb-15">
         {renderChef(chef)}

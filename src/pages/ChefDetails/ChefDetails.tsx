@@ -4,7 +4,7 @@ import { useChefStore } from "../../store/useChefStore";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import ChefOverall from "../../components/ChefOverall";
-import Chef from "../../types/Chef";
+import Chef from "../../types/chef";
 export default function ChefDetails() {
   const { id } = useParams();
   const {
@@ -52,7 +52,7 @@ export default function ChefDetails() {
   };
 
   return (
-    <div className="py-[80px] bg-[#f6fee8] font-poppins ">
+    <div className="py-[80px] bg-[#f6fee8] font-poppins pt-[80px]">
       <BannerLocation text="Chef Details" />
       <div className=" flex flex-col justify-center items-center px-2 gap-5 lg:grid lg:grid-cols-5 lg:pl-40 lg:gap-20 lg:pt-20">
         <div className="w-9/10 aspect-square lg:w-[500px] lg:col-span-2 lg:place-self-end overflow-hidden">

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import { Badge } from "antd";
 
 interface option {
   name: string;
@@ -50,13 +51,13 @@ export default function Header() {
     ));
   };
 
-  const handleLogOut = () => {
+  const handleSignOut = () => {
     setOpenToggle(false);
     signOut();
   };
 
   return (
-    <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black">
+    <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black ">
       <div className=" h-full px-10 flex flex-row items-center justify-between  w-full">
         <div className="flex flex-row items-center gap-9 font-poppins">
           {/* <ThemeToggle /> */}
@@ -67,7 +68,11 @@ export default function Header() {
           {renderOptions(options)}
         </div>
         <div className="hidden md:flex space-x-5 cursor-pointer">
-          <ShoppingCart className="w-7 h-7" />
+          <div>
+            <Badge count={user?.carts?.total_quantity || 0} overflowCount={999}>
+              <ShoppingCart className="w-7 h-7 text-red-600" />
+            </Badge>
+          </div>
 
           <div className="relative">
             <UserCircle className="w-7 h-7" onClick={handlOpenToggle} />
@@ -79,7 +84,7 @@ export default function Header() {
                 </div>
                 <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-1 justify-center items-center hover:text-red-600 transition-all duration:500">
                   <LogOutIcon className="w-5 h-5" />
-                  <div onClick={handleLogOut}>Log out</div>
+                  <div onClick={handleSignOut}>Log out</div>
                 </div>
               </div>
             )}
@@ -97,7 +102,12 @@ export default function Header() {
       </div>
 
       {/* Mobile/Tablet Sidebar */}
-      <Sidebar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      <Sidebar
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+        user={user}
+        signOut={signOut}
+      />
     </div>
   );
 }

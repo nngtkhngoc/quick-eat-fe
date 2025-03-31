@@ -1,0 +1,108 @@
+import { useEffect } from "react";
+import BannerLocation from "../../components/BannerLocation";
+import { useCartStore } from "../../store/useCartStore";
+import CartDetails from "../../types/CartDetails";
+import { X } from "lucide-react";
+
+export default function Cart() {
+  const { fetchCart, cart, loadingCart } = useCartStore();
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  if (loadingCart) {
+    return <div>Loading...</div>;
+  }
+
+  // const [quantity, setQuantity] = u;
+
+  const renderCart = (carts: CartDetails[]) => {
+    return carts.map((cart) => (
+      <div className="p-4 border-b border-dashed flex flex-row gap-3  border-zinc-500 ">
+        <img
+          src={cart.food.image[0]}
+          alt="food"
+          className="w-20 h-20 rounded-full object-cover"
+        />
+
+        <div className="w-full flex flex-col justify-center gap-2">
+          <div className="w-full flex flex-row justify-between items-center">
+            <div className="font-semibold">{cart.food.name}</div>
+            <X className="w-4 h-4 text-red-600" />
+          </div>
+
+          <div className="flex flex-row justify-between w-full items-end">
+            <div className="text-[14px] text-red-600 font-semibold">
+              ${cart.food.price}
+            </div>
+            <div>
+              <button
+                // onClick={handleDecrease}
+                className="border-l border-t border-b border-red-600 p-1 bg-white  text-[12px] cursor-pointer lg:text-[15px]"
+              >
+                -
+              </button>
+              <input
+                className=" w-[45px] py-1 border-t border-b border-red-600 bg-white text-center text-[12px] focus:outline-none text-red-600 lg:text-[15px]"
+                value={cart.quantity}
+                type="text"
+                // onChange={(e) => setQuantity(Number(e.target.value))}
+              />
+
+              <button
+                // onClick={handleIncrease}
+                className="border-r  border-t border-b border-red-600 p-1 bg-white cursor-pointer  text-[12px] lg:text-[15px]"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
+  return (
+    <div className="pt-[80px] bg-[#f7ffe9] pb-10 font-poppins">
+      <BannerLocation text="cart" />
+
+      <div className="w-full flex flex-col justify-center items-center pt-5 ">
+        {cart && (
+          <div className="w-9/10 lg:w-1/3 bg-white drop-shadow-xl flex flex-col gap-4 pb-4 px-1">
+            {renderCart(cart.cart_details)}
+
+            <div className="p-5">
+              <div className="border-dashed border text-[13px] border-zinc-400 w-full p-2 flex flex-col gap-2">
+                <div className="flex flex-row justify-between">
+                  <div className="text-zinc-500">
+                    Total of product pricing:{" "}
+                  </div>
+                  <div className="font-semibold">${cart.total_price}</div>
+                </div>
+
+                <div className="flex flex-row justify-between">
+                  <div className="text-zinc-500">
+                    Estimated shipping charges:
+                  </div>
+                  <div className="font-semibold"> $30 </div>
+                </div>
+
+                <div className="flex flex-row justify-between">
+                  <div className="text-zinc-500">Total:</div>
+                  <div className="font-semibold"> ${cart.total_price + 30}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-row justify-center items-center w-full h-full pb-2">
+              <button className=" relative bg-red-600 w-max lg:text-[18px] py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+                Proceed to checkout{" "}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

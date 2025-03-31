@@ -1,57 +1,9 @@
 import FoodOverall from "../../../components/FoodOverall";
 import { Pagination, ConfigProvider } from "antd";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import Food from "../../../types/food";
 
 interface MenuProps {
-  food: food[];
+  food: Food[];
   loading: boolean;
   setMenuPage: React.Dispatch<React.SetStateAction<number>>;
   menuPage: number;
@@ -69,7 +21,7 @@ export default function Menu({
     return <div>Loading...</div>;
   }
 
-  const renderFood = (relatedFood: food[]) => {
+  const renderFood = (relatedFood: Food[]) => {
     return relatedFood.map((food) => <FoodOverall food={food} />);
   };
 

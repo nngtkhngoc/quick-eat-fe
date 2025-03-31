@@ -1,7 +1,7 @@
-import Review from "../types/review";
+import Review from "../types/Review";
 import Brand from "../types/Brand";
-import Category from "../types/category";
-import Tag from "../types/tag";
+import Category from "../types/Category";
+import Tag from "../types/Tag";
 
 export default interface Food {
   id: string;

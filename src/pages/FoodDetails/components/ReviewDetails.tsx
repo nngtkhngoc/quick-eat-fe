@@ -2,7 +2,7 @@ import { Rate } from "antd";
 import { useReviewStore } from "../../../store/useReviewStore";
 import { useEffect } from "react";
 import Food from "../../../types/food";
-import Review from "../../../types/review";
+import Review from "../../../types/Review";
 import user from "../../../assets/images/user.png";
 
 export default function ReviewDetails({

@@ -1,57 +1,8 @@
 import { Carousel } from "antd";
 import Button from "../../../components/Button";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
-
+import Food from "../../../types/food";
 interface NewArrivalsProps {
-  newFood: food[];
+  newFood: Food[];
   loading: boolean;
 }
 
@@ -60,7 +11,7 @@ export default function NewArrivals({ newFood, loading }: NewArrivalsProps) {
     return <div>Loading...</div>;
   }
 
-  const renderNewArrivals = (newFood: food[]) => {
+  const renderNewArrivals = (newFood: Food[]) => {
     return newFood.map((food) => (
       <div className="w-full bg-white flex flex-col items-center pb-6 font-poppins">
         <div className="flex items-center justify-center">

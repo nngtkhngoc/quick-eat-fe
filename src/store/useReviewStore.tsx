@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import Review from "../types/review";
+import Review from "../types/Review";
 
 const BASE_URL = "http://localhost:5001/api";
 

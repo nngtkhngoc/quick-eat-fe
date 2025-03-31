@@ -1,6 +1,6 @@
 import { TagIcon } from "lucide-react";
 import Food from "../../../types/food";
-import Tag from "../../../types/tag";
+import Tag from "../../../types/Tag";
 
 export default function Description({
   currentFood,

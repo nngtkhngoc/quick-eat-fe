@@ -46,7 +46,7 @@ export default function FoodDetails() {
   }, [searchTags, fetchRelatedFood]);
 
   return (
-    <div className="bg-[#f7ffe9] pb-20 ">
+    <div className="bg-[#f7ffe9] pb-20 pt-[80px]">
       <BannerLocation text="Food Details" />
       <div className="flex flex-col lg:grid lg:grid-cols-3 lg:place-items-start relative z-10">
         <img

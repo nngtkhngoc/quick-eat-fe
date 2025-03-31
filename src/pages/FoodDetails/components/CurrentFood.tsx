@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import payment_card from "../../../assets/images/payment_card.png";
 import Food from "../../../types/food";
-import Category from "../../../types/category";
+import Category from "../../../types/Category";
 
 export default function CurrentFood({
   currentFood,

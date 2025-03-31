@@ -1,3 +1,4 @@
+import Cart from "./Cart";
 export default interface User {
   id: string;
   username: string;
@@ -5,4 +6,5 @@ export default interface User {
   phone_number: string;
   fullname: string | null;
   profile_pic: string | null;
+  carts: Cart | null;
 }

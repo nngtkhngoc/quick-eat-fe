@@ -63,7 +63,7 @@ export default function Shop() {
   ]);
 
   return (
-    <div className="font-poppins bg-[#f7ffe9] pb-10">
+    <div className="font-poppins bg-[#f7ffe9] pb-10 pt-[80px]">
       <BannerLocation text="Shop" />
       <div className="flex flex-col lg:grid lg:grid-cols-4 lg:px-20 px-4 relative">
         <img

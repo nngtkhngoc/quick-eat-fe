@@ -1,10 +1,14 @@
 import { X } from "lucide-react";
 import logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import User from "../types/user";
+import { useNavigate } from "react-router-dom";
 
 interface sidebarProps {
   openSidebar: boolean;
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User | null;
+  signOut: () => void;
 }
 
 interface option {
@@ -12,7 +16,12 @@ interface option {
   path: string;
 }
 
-export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
+export default function Sidebar({
+  openSidebar,
+  setOpenSidebar,
+  user,
+  signOut,
+}: sidebarProps) {
   const options = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
@@ -21,7 +30,6 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
     { name: "Blog", path: "/blog" },
     { name: "Profile", path: "/profile" },
     { name: "Cart", path: "/cart" },
-    { name: "Sign Out", path: "/about" },
   ];
 
   const renderOptions = (options: option[]) => {
@@ -36,6 +44,14 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
       </Link>
     ));
   };
+
+  const handleSignOut = () => {
+    setOpenSidebar(false);
+    signOut();
+  };
+
+  const nav = useNavigate();
+
   return (
     <div
       className={`fixed top-0 right-0 h-screen w-[280px] bg-white shadow-xl transition-transform duration-500 dark:bg-black  ${
@@ -55,6 +71,25 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: sidebarProps) {
         <img src={logo} alt="logo-pic" className="w-24 h-24" />
 
         {renderOptions(options)}
+
+        {user ? (
+          <div
+            onClick={handleSignOut}
+            className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center  w-2/3 dark:text-white"
+          >
+            Sign Out
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              nav("/auth");
+              setOpenSidebar(false);
+            }}
+            className="hover:text-red-600 text-[14px] cursor-pointer transition duration-300 ease-in-out h-[40px] flex justify-center items-center  w-2/3 dark:text-white"
+          >
+            Sign In
+          </div>
+        )}
       </ul>
     </div>
   );
