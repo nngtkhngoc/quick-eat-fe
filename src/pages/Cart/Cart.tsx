@@ -5,8 +5,12 @@ import CartDetails from "../../types/CartDetails";
 import { X } from "lucide-react";
 
 export default function Cart() {
-  const { cart, loadingCart, updateCart } = useCartStore();
+  const { fetchCart, cart, updateCart } = useCartStore();
   const [quantities, setQuantities] = useState<number[]>([]);
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   useEffect(() => {
     if (cart) {
@@ -14,9 +18,6 @@ export default function Cart() {
       setQuantities(newQuantities);
     }
   }, [cart]);
-  if (loadingCart) {
-    return <div>Loading...</div>;
-  }
 
   const handleDecrease = (index: number, food_id: string) => {
     const newQuantities = [...quantities];
@@ -127,7 +128,7 @@ export default function Cart() {
             </div>
 
             <div className="flex flex-row justify-center items-center w-full h-full pb-2">
-              <button className=" relative bg-red-600 w-max lg:text-[18px] py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+              <button className=" relative bg-red-600 w-max py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
                 Proceed to checkout{" "}
               </button>
             </div>
