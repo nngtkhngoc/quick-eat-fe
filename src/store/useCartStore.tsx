@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import Cart from "../types/Cart";
+import CartDetails from "../types/CartDetails";
 
 interface CartStore {
   cart: Cart | null;
+  cartDetails: CartDetails[];
   loadingCart: boolean;
 
   fetchCart: () => Promise<void>;
@@ -11,6 +13,7 @@ interface CartStore {
     food_id: string,
     cart_id: string,
     quantity: number
+    // index: number
   ) => Promise<void>;
   clearCart: () => void;
 }
@@ -19,6 +22,7 @@ const BASE_URL = "http://localhost:5001/api";
 const token = localStorage.getItem("token") || "";
 
 export const useCartStore = create<CartStore>((set) => ({
+  cartDetails: [],
   cart: null,
   loadingCart: false,
 
@@ -37,6 +41,7 @@ export const useCartStore = create<CartStore>((set) => ({
 
       if (data.success) {
         set({ cart: data.data });
+        set({ cartDetails: data.data.cart_details });
       }
     } catch (error) {
       console.log("Error fetching cart: ", error);
@@ -68,7 +73,12 @@ export const useCartStore = create<CartStore>((set) => ({
     set({ loadingCart: false });
   },
 
-  updateCart: async (food_id: string, cart_id: string, quantity: number) => {
+  updateCart: async (
+    food_id: string,
+    cart_id: string,
+    quantity: number
+    // index: number
+  ) => {
     set({ loadingCart: true });
     try {
       const response = await fetch(`${BASE_URL}/cart`, {
@@ -81,17 +91,24 @@ export const useCartStore = create<CartStore>((set) => ({
       });
 
       const data = await response.json();
-
       if (data.success) {
-        set({ cart: data.data });
+        set((state) => ({
+          cartDetails: state.cartDetails.map((item) =>
+            item.food_id === food_id
+              ? { ...item, ...data.updatedCartDetails }
+              : item
+          ),
+          cart: data.data,
+        }));
       }
     } catch (error) {
-      console.log("Error update cart: ", error);
+      console.log("Error updating cart: ", error);
     }
     set({ loadingCart: false });
   },
 
   clearCart: () => {
     set({ cart: null });
+    set({ cartDetails: [] });
   },
 }));

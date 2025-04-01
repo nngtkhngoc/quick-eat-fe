@@ -3,8 +3,10 @@ import { useState } from "react";
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../store/useAuthStore";
+import { useCartStore } from "../../../store/useCartStore";
 
 export default function SignIn() {
+  const { fetchCart } = useCartStore();
   const [visiblePassword, setVisiblePassword] = useState(false);
   const handleVisiblePassword = () => {
     setVisiblePassword(!visiblePassword);
@@ -25,6 +27,7 @@ export default function SignIn() {
         description: errorAuth,
       });
     } else {
+      fetchCart();
       api.success({
         message: "SIGN IN",
         description: "Sign in successfully",

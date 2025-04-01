@@ -5,33 +5,43 @@ import CartDetails from "../../types/CartDetails";
 import { X } from "lucide-react";
 
 export default function Cart() {
-  const { fetchCart, cart, updateCart } = useCartStore();
+  const { fetchCart, cart, updateCart, cartDetails } = useCartStore();
   const [quantities, setQuantities] = useState<number[]>([]);
+
+  const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
   useEffect(() => {
-    if (cart) {
-      const newQuantities = cart.cart_details.map((cart) => cart.quantity);
+    if (cartDetails.length > 0 && !fetched) {
+      const newQuantities = cartDetails.map((cart) => cart.quantity);
       setQuantities(newQuantities);
+      setFetched(true);
     }
-  }, [cart]);
+  }, [cartDetails, fetched]);
 
   const handleDecrease = (index: number, food_id: string) => {
     const newQuantities = [...quantities];
-    newQuantities[index]--;
+    if (newQuantities[index] == 0) newQuantities[index] = 0;
+    else newQuantities[index]--;
     setQuantities(newQuantities);
 
     updateCart(food_id, cart?.id || "", newQuantities[index]);
   };
 
-  const handleChangeQuantity = (index: number, value: string) => {
+  const handleChangeQuantity = (
+    index: number,
+    value: string,
+    food_id: string
+  ) => {
     const newQuantities = [...quantities];
-    const parsedValue = parseInt(value, 10);
-    newQuantities[index] = isNaN(parsedValue) ? 1 : Math.max(parsedValue, 1); // Không cho số âm hoặc NaN
+    const parsedValue = Number(value);
+    newQuantities[index] = parsedValue;
     setQuantities(newQuantities);
+
+    updateCart(food_id, cart?.id || "", newQuantities[index]);
   };
 
   const handleIncrease = (index: number, food_id: string) => {
@@ -76,7 +86,7 @@ export default function Cart() {
                 value={quantities[index]}
                 type="text"
                 onChange={(e) => {
-                  handleChangeQuantity(index, e.target.value);
+                  handleChangeQuantity(index, e.target.value, cart.food_id);
                 }}
               />
 
@@ -102,7 +112,7 @@ export default function Cart() {
       <div className="w-full flex flex-col justify-center items-center pt-5 ">
         {cart && (
           <div className="w-9/10 lg:w-1/3 bg-white drop-shadow-xl flex flex-col gap-4 pb-4 px-1">
-            {renderCart(cart.cart_details)}
+            {renderCart(cartDetails)}
 
             <div className="p-5">
               <div className="border-dashed border text-[13px] border-zinc-400 w-full p-2 flex flex-col gap-2">
