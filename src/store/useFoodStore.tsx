@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import Food from "../types/food";
+import Food from "../types/Food";
 
 interface FoodStore {
   fetchFood: (id: string) => Promise<void>;

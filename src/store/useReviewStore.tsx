@@ -8,7 +8,6 @@ interface ReviewStore {
   loading: boolean;
   loadingAddReview: boolean;
   reviewChange: boolean;
-  errorAddReview: string | null;
 
   fetchReviews: (id: string) => Promise<void>;
 
@@ -16,7 +15,7 @@ interface ReviewStore {
     id: string | undefined,
     score: number,
     content: string
-  ) => Promise<void>;
+  ) => Promise<{ success: boolean; message?: string }>;
 }
 
 export const useReviewStore = create<ReviewStore>((set) => ({
@@ -24,7 +23,6 @@ export const useReviewStore = create<ReviewStore>((set) => ({
   reviewChange: false,
   loading: false,
   loadingAddReview: false,
-  errorAddReview: null,
 
   fetchReviews: async (id: string) => {
     set({ loading: true });
@@ -67,13 +65,21 @@ export const useReviewStore = create<ReviewStore>((set) => ({
         set((state) => ({
           currentReviews: [data.data, ...state.currentReviews],
         }));
-        set({ errorAddReview: null });
+        return { success: true };
       } else {
-        set({ errorAddReview: data.message });
+        return {
+          success: false,
+          message: data.message || "Failed to add review",
+        };
       }
     } catch (error) {
       console.log("Error adding reviews:", error);
+      return {
+        success: false,
+        message: "Network error. Please try again.",
+      };
+    } finally {
+      set({ loadingAddReview: false });
     }
-    set({ loadingAddReview: false });
   },
 }));

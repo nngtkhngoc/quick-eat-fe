@@ -4,29 +4,29 @@ import { useState } from "react";
 import { notification } from "antd";
 
 export default function AddReview({ id }: { id: string | undefined }) {
-  const { loadingAddReview, addReviews, errorAddReview } = useReviewStore();
+  const { loadingAddReview, addReviews } = useReviewStore();
 
   const [content, setContent] = useState("");
   const [score, setScore] = useState(5);
   const [api, contextHolder] = notification.useNotification();
 
-  const handleAddReview = () => {
+  const handleAddReview = async () => {
     addReviews(id, score, content);
+    const result = await addReviews(id, score, content);
 
-    if (errorAddReview) {
-      api.error({
-        message: "ADD REVIEW",
-        description: errorAddReview,
-        duration: 2,
-      });
-    } else {
+    if (result.success) {
       api.success({
-        message: "ADD REVIEW",
-        description: "Add review successfully",
-        duration: 2,
+        message: "Success",
+        description: "Your review has been added successfully.",
+      });
+      setContent("");
+      setScore(5);
+    } else {
+      api.error({
+        message: "Error",
+        description: result.message || "Failed to add review.",
       });
     }
-
     setContent("");
     setScore(5);
   };
