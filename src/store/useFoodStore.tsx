@@ -28,7 +28,7 @@ interface FetchFoodParams {
   minPrice?: string;
 }
 
-const BASE_URL = "http://localhost:5001/api";
+const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
 export const useFoodStore = create<FoodStore>((set) => ({
   food: [],

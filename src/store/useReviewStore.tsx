@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import Review from "../types/Review";
 
-const BASE_URL = "http://localhost:5001/api";
+const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
 interface ReviewStore {
   currentReviews: Review[];

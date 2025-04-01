@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import Chef from "../types/chef";
+import Chef from "../types/Chef";
 
 interface chefParams {
   limit?: number;
@@ -17,7 +17,7 @@ interface chefStore {
   fetchChefDetails: (id: string) => Promise<void>;
 }
 
-const BASE_URL = "http://localhost:5001/api";
+const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
 export const useChefStore = create<chefStore>((set) => ({
   chef: [],

@@ -26,7 +26,7 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const BASE_URL = "http://localhost:5001/api";
+  const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
   const { fetchUser } = useAuthStore();
 

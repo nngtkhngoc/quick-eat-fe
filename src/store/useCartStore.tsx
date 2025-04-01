@@ -18,7 +18,7 @@ interface CartStore {
   clearCart: () => void;
 }
 
-const BASE_URL = "http://localhost:5001/api";
+const BASE_URL = "https://quick-eat-be.onrender.com/api";
 const token = localStorage.getItem("token") || "";
 
 export const useCartStore = create<CartStore>((set) => ({

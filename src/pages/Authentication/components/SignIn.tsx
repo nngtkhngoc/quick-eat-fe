@@ -16,7 +16,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { fetchUser } = useAuthStore();
-  const BASE_URL = "http://localhost:5001/api";
+  const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
