@@ -1,7 +1,7 @@
 import { Rate } from "antd";
 import { useReviewStore } from "../../../store/useReviewStore";
 import { useEffect } from "react";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 import Review from "../../../types/Review";
 import user from "../../../assets/images/user.png";
 
@@ -23,7 +23,6 @@ export default function ReviewDetails({
 
   const renderReviews = (reviews: Review[]) => {
     return reviews.map((review) => {
-      // if (!review.user) <div>Loading...</div>;
       return (
         <div
           className="flex flex-row items-center bg-white rounded-[5px] gap-3 p-3 shadow-lg h-[150px] truncate"
@@ -38,7 +37,7 @@ export default function ReviewDetails({
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-4 ">
               <div>
-                <div className="font-semibold capitalize">
+                <div className="font-semibold ">
                   {review.user?.fullname || review.user?.username}
                 </div>
 

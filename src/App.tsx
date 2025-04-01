@@ -10,6 +10,7 @@ import Authentication from "./pages/Authentication/Authentication.tsx";
 import { useAuthStore } from "./store/useAuthStore.tsx";
 import { useEffect } from "react";
 import Cart from "./pages/Cart/Cart.tsx";
+import { useCartStore } from "./store/useCartStore.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,12 @@ const router = createBrowserRouter([
 
 function App() {
   const { fetchUser } = useAuthStore();
+  const { fetchCart } = useCartStore();
 
   useEffect(() => {
     fetchUser();
-  }, [fetchUser]);
+    fetchCart();
+  }, [fetchUser, fetchCart]);
   return (
     <>
       <RouterProvider router={router} />

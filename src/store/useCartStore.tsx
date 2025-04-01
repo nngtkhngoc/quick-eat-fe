@@ -117,7 +117,7 @@ export const useCartStore = create<CartStore>((set) => ({
       if (data.success) {
         set((state) => ({
           cartDetails: state.cartDetails.filter(
-            (item) => item.food_id === food_id
+            (item) => item.food_id !== food_id
           ),
           cart: data.data,
         }));

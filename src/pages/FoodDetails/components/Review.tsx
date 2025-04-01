@@ -1,6 +1,6 @@
 import AddReview from "./AddReview";
 import ReviewDetails from "./ReviewDetails";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 
 export default function Review({
   currentFood,

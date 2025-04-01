@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import user from "../../../assets/images/user.png";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { notification } from "antd";
+import { useCartStore } from "../../../store/useCartStore";
 
 export default function SignUp() {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(false);
+  const { fetchCart } = useCartStore();
 
   const handleVisiblePassword = () => {
     setVisiblePassword(!visiblePassword);
@@ -22,28 +24,55 @@ export default function SignUp() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const { signUp, loadingUser, errorAuth } = useAuthStore();
+  const BASE_URL = "http://localhost:5001/api";
+
+  const { fetchUser } = useAuthStore();
 
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
-  const handleSignUp = () => {
-    signUp(username, email, password, confirmPassword, phone, user);
+  const handleSignUp = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${BASE_URL}/users/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          confirm_password: confirmPassword,
+          phone_number: phone,
+          profile_pic: user,
+        }),
+      });
 
-    if (errorAuth) {
-      api.error({
-        message: "SIGN UP",
-        description: errorAuth,
-      });
-    } else {
-      api.success({
-        message: "SIGN UP",
-        description: "Sign up successfully",
-      });
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        fetchUser();
+        fetchCart();
+        api.success({
+          message: "SIGN UP",
+          description: "Sign up successfully",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        api.error({
+          message: "SIGN UP",
+          description: data.message,
+        });
+      }
+    } catch (error) {
+      console.log("Error signing up", error);
     }
+    setLoading(false);
   };
 
   return (
@@ -56,6 +85,7 @@ export default function SignUp() {
         <input
           type="email"
           name="email"
+          value={email}
           id="email"
           required
           placeholder="Email"
@@ -84,8 +114,9 @@ export default function SignUp() {
           Username
         </label>
         <input
-          type="tel"
+          type="text"
           name="username"
+          value={username}
           id="username"
           required
           placeholder="Username"
@@ -161,7 +192,7 @@ export default function SignUp() {
         className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
         onClick={handleSignUp}
       >
-        {loadingUser ? "Loading..." : "SIGN UP"}
+        {loading ? "Loading..." : "SIGN UP"}
       </button>
     </div>
   );
