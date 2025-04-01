@@ -25,7 +25,6 @@ export default function Header() {
     { name: "About", path: "/about" },
     { name: "Shop", path: "/shop" },
     { name: "Chef", path: "/chef" },
-    { name: "Blog", path: "/blog" },
   ];
 
   const { user, signOut } = useAuthStore();

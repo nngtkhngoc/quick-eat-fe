@@ -4,7 +4,7 @@ import arrow2 from "../../../assets/images/arrow2.png";
 
 export default function HowItWorks() {
   return (
-    <div className="flex items-center justify-between font-poppins flex-col md:flex-row md:space-x-10 ">
+    <div className="flex items-center justify-between font-poppins flex-col md:flex-row md:gap-x-5 ">
       {/* {renderIcons(icons)} */}
       <div className="flex items-center justify-center font-poppins flex-col space-y-2 ">
         <div className="w-[100px] h-[100px] rounded-full bg-red-600 flex items-center justify-center ">

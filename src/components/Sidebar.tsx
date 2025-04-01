@@ -27,7 +27,6 @@ export default function Sidebar({
     { name: "About", path: "/about" },
     { name: "Shop", path: "/shop" },
     { name: "Chef", path: "/chef" },
-    { name: "Blog", path: "/blog" },
     { name: "Profile", path: "/profile" },
     { name: "Cart", path: "/cart" },
   ];
