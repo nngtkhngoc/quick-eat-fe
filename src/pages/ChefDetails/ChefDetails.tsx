@@ -4,7 +4,7 @@ import { useChefStore } from "../../store/useChefStore";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, PhoneCall, Twitter } from "lucide-react";
 import ChefOverall from "../../components/ChefOverall";
-import Chef from "../../types/chef";
+import Chef from "../../types/Chef";
 export default function ChefDetails() {
   const { id } = useParams();
   const {

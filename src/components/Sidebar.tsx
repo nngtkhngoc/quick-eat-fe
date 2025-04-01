@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import User from "../types/user";
+import User from "../types/User";
 import { useNavigate } from "react-router-dom";
 
 interface sidebarProps {

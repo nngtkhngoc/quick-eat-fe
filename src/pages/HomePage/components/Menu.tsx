@@ -1,63 +1,16 @@
 import Button from "../../../components/Button";
 import cooking from "../../../assets/images/cooking.png";
 import FoodOverall from "../../../components/FoodOverall";
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import Food from "../../../types/Food";
 
 export default function Menu({
   relatedFood,
   loadingRelatedFood,
 }: {
-  relatedFood: food[];
+  relatedFood: Food[];
   loadingRelatedFood: boolean;
 }) {
-  const renderMenu = (food: food[]) => {
+  const renderMenu = (food: Food[]) => {
     return food.map((f) => <FoodOverall food={f} />);
   };
 

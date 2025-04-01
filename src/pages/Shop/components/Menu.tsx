@@ -1,6 +1,6 @@
 import FoodOverall from "../../../components/FoodOverall";
 import { Pagination, ConfigProvider } from "antd";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 
 interface MenuProps {
   food: Food[];

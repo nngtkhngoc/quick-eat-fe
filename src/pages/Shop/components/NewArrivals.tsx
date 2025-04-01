@@ -1,6 +1,6 @@
 import { Carousel } from "antd";
 import Button from "../../../components/Button";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 interface NewArrivalsProps {
   newFood: Food[];
   loading: boolean;

@@ -1,66 +1,18 @@
 import Button from "../../../components/Button";
-
-interface food {
-  id: string;
-  name: string;
-  price: number;
-  availablity: string;
-  description: string;
-  image: string[];
-  avg_rate: number;
-  brand_id: string;
-  brand: brand[];
-  reviews: review[];
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface brand {
-  id: string;
-  name: string;
-}
-
-interface user {
-  id: string;
-  username: string;
-  fullname: string;
-  phone_number: string;
-  email: string;
-  profile_pic: string;
-}
-
-interface review {
-  id: string;
-  score: number;
-  content: string;
-  created_at: string;
-  food_id: string;
-  user_id: string;
-  user: user;
-  food_tags: tag[];
-  food_categories: category[];
-}
-
-interface tag {
-  tag: { id: string; name: string };
-}
-
-interface category {
-  category: { name: string };
-}
+import Food from "../../../types/Food";
 
 export default function Featured({
   relatedFood,
   loadingRelatedFood,
 }: {
-  relatedFood: food[];
+  relatedFood: Food[];
   loadingRelatedFood: boolean;
 }) {
   if (!relatedFood || loadingRelatedFood) {
     return <div>Loading...</div>;
   }
 
-  const renderFeaturedFood = (food: food[]) => {
+  const renderFeaturedFood = (food: Food[]) => {
     return food.map((f, index) => {
       if (index < 3)
         return (

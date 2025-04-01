@@ -1,5 +1,5 @@
 import FoodOverall from "../../../components/FoodOverall";
-import Food from "../../../types/food";
+import Food from "../../../types/Food";
 
 export default function RelatedFood({
   relatedFood,

@@ -1,4 +1,4 @@
-import Food from "./food";
+import Food from "./Food";
 
 export default interface CartDetails {
   cart_id: string;
