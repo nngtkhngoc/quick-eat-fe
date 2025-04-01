@@ -3,7 +3,7 @@ import { Pagination, ConfigProvider } from "antd";
 import { useEffect, useState } from "react";
 import ChefOverall from "../../components/ChefOverall";
 import BannerLocation from "../../components/BannerLocation";
-import Chef from "../../types/chef";
+import Chef from "../../types/Chef";
 
 export default function ChefList() {
   const { chef, fetchChef, loadingChef, totalChef } = useChefStore();

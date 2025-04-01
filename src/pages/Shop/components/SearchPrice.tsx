@@ -14,7 +14,7 @@ export default function SearchPrice({ setSearchPrice }: SearchPriceProps) {
   }, [value, setSearchPrice]);
 
   const handleChange = (
-    event: Event,
+    __: Event,
     newValue: number | number[],
     activeThumb: number
   ) => {
