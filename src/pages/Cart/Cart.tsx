@@ -5,7 +5,8 @@ import CartDetails from "../../types/CartDetails";
 import { X } from "lucide-react";
 
 export default function Cart() {
-  const { fetchCart, cart, updateCart, cartDetails } = useCartStore();
+  const { fetchCart, cart, updateCart, cartDetails, removeFromCart } =
+    useCartStore();
   const [quantities, setQuantities] = useState<number[]>([]);
 
   const [fetched, setFetched] = useState(false);
@@ -52,6 +53,13 @@ export default function Cart() {
     updateCart(food_id, cart?.id || "", newQuantities[index]);
   };
 
+  const handleRemove = (food_id: string) => {
+    if (cart) {
+      removeFromCart(food_id, cart?.id);
+      fetchCart();
+    }
+  };
+
   const renderCart = (carts: CartDetails[]) => {
     return carts.map((cart, index) => (
       <div
@@ -67,7 +75,10 @@ export default function Cart() {
         <div className="w-full flex flex-col justify-center gap-2">
           <div className="w-full flex flex-row justify-between items-center">
             <div className="font-semibold">{cart.food.name}</div>
-            <X className="w-4 h-4 text-red-600" />
+            <X
+              className="w-4 h-4 text-red-600"
+              onClick={() => handleRemove(cart.food_id)}
+            />
           </div>
 
           <div className="flex flex-row justify-between w-full items-end">
@@ -110,7 +121,7 @@ export default function Cart() {
       <BannerLocation text="cart" />
 
       <div className="w-full flex flex-col justify-center items-center pt-5 ">
-        {cart && (
+        {cartDetails.length > 0 && cart ? (
           <div className="w-9/10 lg:w-1/3 bg-white drop-shadow-xl flex flex-col gap-4 pb-4 px-1">
             {renderCart(cartDetails)}
 
@@ -138,11 +149,13 @@ export default function Cart() {
             </div>
 
             <div className="flex flex-row justify-center items-center w-full h-full pb-2">
-              <button className=" relative bg-red-600 w-max py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+              <button className="cursor-pointer relative bg-red-600 w-max py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
                 Proceed to checkout{" "}
               </button>
             </div>
           </div>
+        ) : (
+          <div>No food here</div>
         )}
       </div>
     </div>

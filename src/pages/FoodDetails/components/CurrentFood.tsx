@@ -13,7 +13,7 @@ export default function CurrentFood({
   loading: boolean;
 }) {
   const [selectedImage, setSelectedImage] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const { addToCart, loadingCart } = useCartStore();
 
   if (loading || !currentFood) {
@@ -61,6 +61,9 @@ export default function CurrentFood({
 
   const handleAddToCart = () => {
     addToCart(currentFood.id, quantity);
+    if (!loading) {
+      setQuantity(1);
+    }
   };
 
   return (

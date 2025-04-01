@@ -13,8 +13,8 @@ interface CartStore {
     food_id: string,
     cart_id: string,
     quantity: number
-    // index: number
   ) => Promise<void>;
+  removeFromCart: (food_id: string, cart_id: string) => Promise<void>;
   clearCart: () => void;
 }
 
@@ -73,12 +73,7 @@ export const useCartStore = create<CartStore>((set) => ({
     set({ loadingCart: false });
   },
 
-  updateCart: async (
-    food_id: string,
-    cart_id: string,
-    quantity: number
-    // index: number
-  ) => {
+  updateCart: async (food_id: string, cart_id: string, quantity: number) => {
     set({ loadingCart: true });
     try {
       const response = await fetch(`${BASE_URL}/cart`, {
@@ -105,6 +100,31 @@ export const useCartStore = create<CartStore>((set) => ({
       console.log("Error updating cart: ", error);
     }
     set({ loadingCart: false });
+  },
+
+  removeFromCart: async (food_id: string, cart_id: string) => {
+    try {
+      const response = await fetch(`${BASE_URL}/cart`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token,
+        },
+        body: JSON.stringify({ food_id, cart_id }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        set((state) => ({
+          cartDetails: state.cartDetails.filter(
+            (item) => item.food_id === food_id
+          ),
+          cart: data.data,
+        }));
+      }
+    } catch (error) {
+      console.log("Error removing from cart", error);
+    }
   },
 
   clearCart: () => {

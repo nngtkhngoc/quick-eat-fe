@@ -57,6 +57,7 @@ export default function Header() {
     setOpenToggle(false);
     signOut();
     clearCart();
+    nav("/");
   };
 
   return (
