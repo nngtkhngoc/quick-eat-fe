@@ -63,6 +63,7 @@ export default function SignUp() {
         setTimeout(() => {
           navigate("/");
         }, 1000);
+        window.location.reload();
       } else {
         api.error({
           message: "SIGN UP",

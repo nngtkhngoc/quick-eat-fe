@@ -20,7 +20,7 @@ export default function ChefOverall({ chef }: { chef: chef }) {
         <img
           src={chef.profile_img}
           alt="food"
-          className="w-[200px] h-[200px] rounded-full object-cover relative z-10"
+          className="w-[180px] h-[180px] rounded-full object-cover relative z-10"
         />
       </div>
 

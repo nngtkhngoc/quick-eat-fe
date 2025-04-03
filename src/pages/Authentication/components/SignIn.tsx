@@ -48,6 +48,7 @@ export default function SignIn() {
           console.log("abc");
           navigate("/");
         }, 1000);
+        window.location.reload();
       } else {
         api.error({
           message: "SIGN IN",
