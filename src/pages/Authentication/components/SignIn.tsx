@@ -45,10 +45,9 @@ export default function SignIn() {
           description: "Sign in successfully",
         });
         setTimeout(() => {
-          console.log("abc");
           navigate("/");
+          window.location.reload();
         }, 1000);
-        window.location.reload();
       } else {
         api.error({
           message: "SIGN IN",
