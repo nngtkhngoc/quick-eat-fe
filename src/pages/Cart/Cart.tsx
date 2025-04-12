@@ -3,11 +3,13 @@ import BannerLocation from "../../components/BannerLocation";
 import { useCartStore } from "../../store/useCartStore";
 import CartDetails from "../../types/CartDetails";
 import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const { fetchCart, cart, updateCart, cartDetails, removeFromCart } =
     useCartStore();
   const [quantities, setQuantities] = useState<number[]>([]);
+  const nav = useNavigate();
 
   useEffect(() => {
     fetchCart();
@@ -144,7 +146,12 @@ export default function Cart() {
             </div>
 
             <div className="flex flex-row justify-center items-center w-full h-full pb-2">
-              <button className=" relative bg-red-600 w-max py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+              <button
+                onClick={() => {
+                  nav("/checkout");
+                }}
+                className=" relative bg-red-600 w-max py-3 px-3 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
+              >
                 Proceed to checkout{" "}
               </button>
             </div>

@@ -11,6 +11,7 @@ import { useAuthStore } from "./store/useAuthStore.tsx";
 import { useEffect } from "react";
 import Cart from "./pages/Cart/Cart.tsx";
 import { useCartStore } from "./store/useCartStore.tsx";
+import Checkout from "./pages/Checkout/Checkout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/chef/:id", element: <ChefDetails /> },
       { path: "/auth", element: <Authentication /> },
       { path: "/cart", element: <Cart /> },
+      { path: "/checkout", element: <Checkout /> },
     ],
   },
 ]);
