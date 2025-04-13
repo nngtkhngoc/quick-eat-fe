@@ -22,7 +22,15 @@ interface Province {
 
 const data = rawData as Province[];
 
-export default function ProvinceDropdown() {
+interface ProvinceDropdownProps {
+  address: string;
+  setAddress: (address: string) => void;
+}
+
+export default function ProvinceDropdown({
+  setAddress,
+  address,
+}: ProvinceDropdownProps) {
   const [province, setProvince] = useState<Province>(data[0]);
   const [district, setDistrict] = useState<District>(province.Districts[0]);
   const [_ward, setWard] = useState<Ward>(district.Wards[0]); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -30,13 +38,12 @@ export default function ProvinceDropdown() {
   const [info, setInfo] = useState(0);
   const [toggleDown, setToggleDown] = useState(false);
 
-  const [address, setAddress] = useState("");
-
   const renderProvinces = (provinces: Province[]) => {
     return provinces.map((province) => (
       <li
         key={province.Id}
         value={province.Id}
+        className="hover:bg-zinc-200 cursor-pointer py-3"
         onClick={() => {
           const selectedProvince = data.find((p) => p.Id === province.Id);
           if (selectedProvince) {
@@ -56,6 +63,7 @@ export default function ProvinceDropdown() {
   const renderDistricts = (districts: District[]) => {
     return districts.map((district) => (
       <li
+        className="hover:bg-zinc-200 cursor-pointer py-3"
         key={district.Id}
         value={district.Id}
         onClick={() => {
@@ -65,7 +73,7 @@ export default function ProvinceDropdown() {
           if (selectedDistrict) {
             setDistrict(selectedDistrict);
             setWard(selectedDistrict.Wards[0]);
-            setAddress(address + `${selectedDistrict.Name}, `);
+            setAddress(province.Name + ", " + `${selectedDistrict.Name}, `);
           }
           setInfo(2);
         }}
@@ -78,6 +86,7 @@ export default function ProvinceDropdown() {
   const renderWards = (wards: Ward[]) => {
     return wards.map((ward) => (
       <li
+        className="hover:bg-zinc-200 cursor-pointer py-3"
         key={ward.Id}
         value={ward.Id}
         onClick={() => {
@@ -97,9 +106,9 @@ export default function ProvinceDropdown() {
 
   return (
     <div className="w-full ">
-      <div>
+      <div className="flex flex-col gap-2">
         <div
-          className="flex flex-row items-center"
+          className="flex flex-row items-center cursor-pointer"
           onClick={() => {
             setToggleDown(true);
             setInfo(0);
@@ -137,7 +146,7 @@ export default function ProvinceDropdown() {
             Province
           </div>
           {info == 0 && (
-            <ul className="w-full h-40 overflow-y-scroll flex flex-col gap-3">
+            <ul className="w-full h-40 overflow-y-scroll flex flex-col ">
               {renderProvinces(data)}
             </ul>
           )}
@@ -159,7 +168,7 @@ export default function ProvinceDropdown() {
             District
           </div>
           {info == 1 && (
-            <ul className="w-full h-40 overflow-y-scroll flex flex-col gap-3">
+            <ul className="w-full h-40 overflow-y-scroll flex flex-col ">
               {renderDistricts(province.Districts)}
             </ul>
           )}
@@ -176,7 +185,7 @@ export default function ProvinceDropdown() {
             Ward
           </div>
           {info == 2 && (
-            <ul className="w-full h-40 overflow-y-scroll flex flex-col gap-3">
+            <ul className="w-full h-40 overflow-y-scroll flex flex-col ">
               {renderWards(district.Wards)}
             </ul>
           )}

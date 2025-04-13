@@ -11,7 +11,7 @@ export default function AddReview({ id }: { id: string | undefined }) {
   const [api, contextHolder] = notification.useNotification();
 
   const handleAddReview = async () => {
-    addReviews(id, score, content);
+    // addReviews(id, score, content);
     const result = await addReviews(id, score, content);
 
     if (result.success) {
