@@ -29,6 +29,7 @@ export default function Sidebar({
     { name: "Chef", path: "/chef" },
     { name: "Profile", path: "/profile" },
     { name: "Cart", path: "/cart" },
+    { name: "Orders", path: "/orders" },
   ];
 
   const renderOptions = (options: option[]) => {

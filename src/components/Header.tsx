@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { LogOutIcon, Menu, ShoppingCart, User, UserCircle } from "lucide-react";
+import {
+  BadgeDollarSign,
+  LogOutIcon,
+  Menu,
+  ShoppingCart,
+  User,
+  UserCircle,
+} from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
@@ -83,11 +90,17 @@ export default function Header() {
             <UserCircle className="w-7 h-7" onClick={handlOpenToggle} />
             {openToggle && (
               <div className="absolute top-10 right-0 bg-white w-max drop-shadow-xl flex flex-col font-medium text-black justify-start">
-                <div className="flex flex-row border-b border-zinc-300 py-3 gap-2 px-4 hover:text-red-600 transition-all duration:500">
+                <div className="flex flex-row border-b border-zinc-300 justify-around py-3 gap-2 px-4 hover:text-red-600 transition-all duration:500">
                   <User className="w-5 h-5" />
                   <div>Profile</div>
                 </div>
-                <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-1 justify-center items-center hover:text-red-600 transition-all duration:500">
+
+                <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-2 justify-around items-center hover:text-red-600 transition-all duration:500">
+                  <BadgeDollarSign className="w-5 h-5" />
+                  <Link to="/orders">Orders</Link>
+                </div>
+
+                <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-1 justify-around items-center hover:text-red-600 transition-all duration:500">
                   <LogOutIcon className="w-5 h-5" />
                   <div onClick={handleSignOut}>Log out</div>
                 </div>

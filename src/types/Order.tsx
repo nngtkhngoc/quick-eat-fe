@@ -12,4 +12,5 @@ export default interface Order {
   user_id: string;
   voucher_id: string;
   order_details: OrderDetails[];
+  status: string;
 }

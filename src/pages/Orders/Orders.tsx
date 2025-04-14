@@ -4,7 +4,7 @@ import { useOrderStore } from "../../store/useOrderStore";
 import Order from "../../types/Order";
 import OrderDetails from "../../types/OrderDetails";
 import Category from "../../types/Category";
-
+import { Tag } from "antd";
 export default function Orders() {
   const options = ["All", "Pending", "Confirmed", "Delivered", "Cancelled"];
 
@@ -74,9 +74,24 @@ export default function Orders() {
   const renderOrders = (orders: Order[]) => {
     return orders.map((order) => (
       <div className="bg-white p-5 flex flex-col gap-4">
-        <div>
+        <div className="flex flex-row justify-between">
           <div className="text-red-600 text-lg font-bold border-b border-zinc-300 pb-1">
             {order.orderedAt.split("T")[0]}
+          </div>
+          <div>
+            <Tag
+              color={
+                order.status === "PENDING"
+                  ? "gold"
+                  : order.status === "CONFIRMED"
+                  ? "blue"
+                  : order.status === "DELIVERED"
+                  ? "green"
+                  : "red"
+              }
+            >
+              {order.status.toLowerCase()}
+            </Tag>{" "}
           </div>
         </div>
 
@@ -85,10 +100,10 @@ export default function Orders() {
         </div>
 
         <div className="flex flex-row justify-end gap-3">
-          <button className=" relative bg-red-600 w-[150px] h-[50px] border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+          <button className=" relative bg-red-600 w-[120px] h-[40px] border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
             Add review
           </button>
-          <button className="  bg-white hover:bg-zinc-200 transition-all duration-300 w-[150px] h-[50px]font-poppins text-zinc-600 border border-zinc-300 text-semibold text-[14px] cursor-pointer">
+          <button className=" relative bg-white transition-all duration-300  w-[120px] h-[40px] text-zinc-600 border border-zinc-300 text-semibold text-[14px] cursor-pointer  before:absolute before:w-1 before:bg-zinc-200 before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
             Buy again
           </button>
         </div>
@@ -100,24 +115,25 @@ export default function Orders() {
       <BannerLocation text="Orders" />
 
       <div className="w-full flex flex-col justify-center items-center ">
-        <div className="p-6 w-9/10 lg:w-1/2">
-          <div className="w-full bg-white shadow-lg flex flex-row justify-around overflow-x-scroll no-scrollbar">
+        <div className="p-6 w-9/10 lg:w-1/2 flex flex-col gap-5">
+          <div className="w-full bg-white shadow-md flex flex-row justify-around overflow-x-scroll no-scrollbar">
             {renderOptions(options)}
           </div>
-          <div className="grid grid-cols-4 my-6">
+          <div className="w-full">
             <input
               type="text"
               placeholder="Search order by food name"
-              className="bg-white border-1 py-3 border-red-300 p-2 text-[12px] col-span-3 focus:outline-none"
+              className="bg-white border-1 py-3 border-red-300 p-2 text-[12px] w-full focus:outline-none"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="text-center bg-red-600 text-[12px] text-white">
-              Search
-            </button>
           </div>
           <div className="flex flex-col gap-3">
             {orders && !loadingFetchOrder && renderOrders(orders)}
+            {orders.length === 0 && !loadingFetchOrder && (
+              <div>No order is found</div>
+            )}
+            {loadingFetchOrder && <div className="text-[13px]">Loading...</div>}
           </div>
         </div>
       </div>
