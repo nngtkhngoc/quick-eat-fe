@@ -1,55 +1,29 @@
-# React + TypeScript + Vite
+# Quick Eat – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🍱 Quick Eat is a modern food delivery web application, built with **React**, **TypeScript**, and **Ant Design**, offering a clean UI and seamless user experience.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🍔 Browse and order food from various restaurants
+- 🔍 Real-time search and filters
+- 🛒 Shopping cart with dynamic updates
+- 🔐 User authentication (login/signup)
+- 📦 Order history and delivery tracking (on-going)
+- 📱 Responsive design for mobile & desktop
+- 💬 Live chat support (Socket.io integration) (on-going)
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React, TypeScript, Ant Design, TailwindCSS
+- **State Management**: Zustand
+- **Icons**: Lucide React
+- **Routing**: React Router v6
+- **Authentication**: JWT-based (handled via backend)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 Getting Started
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-# quick-eate
+```bash
+git clone https://github.com/nngtkhngoc/quick-eat-fe.git
+cd quick-eat-fe
+npm install
+npm run dev
