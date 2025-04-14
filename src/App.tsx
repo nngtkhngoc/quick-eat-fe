@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import Cart from "./pages/Cart/Cart.tsx";
 import { useCartStore } from "./store/useCartStore.tsx";
 import Checkout from "./pages/Checkout/Checkout.tsx";
+import Orders from "./pages/Orders/Orders.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/auth", element: <Authentication /> },
       { path: "/cart", element: <Cart /> },
       { path: "/checkout", element: <Checkout /> },
+      { path: "/orders", element: <Orders /> },
     ],
   },
 ]);

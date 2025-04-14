@@ -157,7 +157,7 @@ export default function Cart() {
             </div>
           </div>
         ) : (
-          <div>No food here</div>
+          <div className="font-bold">No food here</div>
         )}
       </div>
     </div>
