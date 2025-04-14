@@ -34,7 +34,7 @@ export default function Checkout() {
         message: "Success",
         description: "Order successfully!",
       });
-      nav("/");
+      nav("/orders");
       fetchCart();
     } else {
       api.error({
