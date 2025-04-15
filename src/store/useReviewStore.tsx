@@ -50,7 +50,7 @@ export const useReviewStore = create<ReviewStore>((set) => ({
     set({ loadingAddReview: true });
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${BASE_URL}/food/${id}/reviews`, {
+      const response = await fetch(`${BASE_URL}/order/${id}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

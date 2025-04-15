@@ -66,6 +66,10 @@ export default function Header() {
     nav("/");
   };
 
+  const handleNavOrders = () => {
+    setOpenToggle(false);
+    nav("/orders");
+  };
   return (
     <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black ">
       <div className=" h-full px-10 flex flex-row items-center justify-between  w-full">
@@ -95,9 +99,12 @@ export default function Header() {
                   <div>Profile</div>
                 </div>
 
-                <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-2 justify-around items-center hover:text-red-600 transition-all duration:500">
+                <div
+                  onClick={handleNavOrders}
+                  className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-2 justify-around items-center hover:text-red-600 transition-all duration:500"
+                >
                   <BadgeDollarSign className="w-5 h-5" />
-                  <Link to="/orders">Orders</Link>
+                  <div>Orders</div>
                 </div>
 
                 <div className="flex flex-row border-b border-zinc-300 py-3 px-4 gap-1 justify-around items-center hover:text-red-600 transition-all duration:500">

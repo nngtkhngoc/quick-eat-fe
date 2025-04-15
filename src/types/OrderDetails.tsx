@@ -7,4 +7,5 @@ export default interface OrderDetails {
   food_id: string;
   order_id: string;
   food: Food;
+  is_reviewed: boolean;
 }

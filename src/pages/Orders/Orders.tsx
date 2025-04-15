@@ -4,7 +4,11 @@ import { useOrderStore } from "../../store/useOrderStore";
 import Order from "../../types/Order";
 import OrderDetails from "../../types/OrderDetails";
 import Category from "../../types/Category";
-import { Tag } from "antd";
+import { Tag, Modal, Rate } from "antd";
+import { useReviewStore } from "../../store/useReviewStore";
+import { notification } from "antd";
+import { Link } from "react-router-dom";
+
 export default function Orders() {
   const options = ["All", "Pending", "Confirmed", "Delivered", "Cancelled"];
 
@@ -12,13 +16,46 @@ export default function Orders() {
   const [search, setSearch] = useState("");
 
   const { orders, loadingFetchOrder, fetchOrder } = useOrderStore();
+  const { loadingAddReview, addReviews } = useReviewStore();
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     const status = order == "All" ? undefined : order.toUpperCase();
     const food_name = search.trim() != "" ? search : undefined;
 
     fetchOrder({ status, food_name });
-  }, [order, search, fetchOrder]);
+  }, [order, search, fetchOrder, loadingAddReview]);
+
+  const [content, setContent] = useState("");
+  const [score, setScore] = useState(5);
+  const [isModalOpen, setIsModalOpen] = useState("");
+  const handleOpenReview = (id: string) => {
+    setIsModalOpen(id);
+  };
+  const handleAddReview = async (id: string) => {
+    setIsModalOpen("");
+    const result = await addReviews(id, score, content);
+
+    if (result.success) {
+      api.success({
+        message: "Success",
+        description: "Your review has been added successfully.",
+      });
+      setContent("");
+      setScore(5);
+    } else {
+      api.error({
+        message: "Error",
+        description: result.message || "Failed to add review.",
+      });
+    }
+    setContent("");
+    setScore(5);
+    window.scrollTo(0, 0);
+  };
+  const handleCancel = () => {
+    setIsModalOpen("");
+  };
 
   const renderOptions = (options: string[]) => {
     return options.map((option) => (
@@ -47,25 +84,97 @@ export default function Orders() {
 
   const renderOrderDetails = (orderDetails: OrderDetails[]) => {
     return orderDetails.map((orderDetail) => (
-      <div className="flex flex-row gap-3 pb-4 border-b border-zinc-300 justify-between">
-        <div className="flex flex-row gap-3">
-          <img
-            src={orderDetail.food.image[0]}
-            className="w-[80px] h-[80px] object-cover"
-            alt="food"
-          />
+      <div className="flex flex-col justify-center pb-4  ">
+        <Link
+          to={`/food/${orderDetail.food_id}`}
+          className="flex flex-row gap-3 pb-4 border-b border-zinc-300 justify-between "
+        >
+          <div className="flex flex-row gap-3">
+            <img
+              src={orderDetail.food.image[0]}
+              className="w-[80px] h-[80px] object-cover"
+              alt="food"
+            />
 
-          <div className="flex flex-col gap-1 justify-between break-all xs:break-normal">
-            <div className="font-semibold ">{orderDetail.food.name}</div>
-            <div className="text-zinc-500 flex flex-row text-[12px] gap-1 ">
-              Categories:{renderCategories(orderDetail.food.food_categories)}
+            <div className="flex flex-col gap-1 justify-between break-all xs:break-normal">
+              <div className="font-semibold ">{orderDetail.food.name}</div>
+              <div className="text-zinc-500 flex flex-row text-[12px] gap-1 ">
+                Categories:{renderCategories(orderDetail.food.food_categories)}
+              </div>
+              <div className="text-[13px]">x{orderDetail.quantity}</div>
             </div>
-            <div className="text-[13px]">x{orderDetail.quantity}</div>
           </div>
-        </div>
 
-        <div className="text-[12px] font-semibold text-red-600  ">
-          ${orderDetail.total_price}
+          <div className="text-[12px] font-semibold text-red-600  ">
+            ${orderDetail.total_price}
+          </div>
+        </Link>
+        <div className="flex flex-row justify-end gap-3 pt-4">
+          {!orderDetail.is_reviewed && (
+            <button
+              onClick={() => handleOpenReview(orderDetail.id)}
+              className=" relative bg-red-600 w-[120px] h-[40px] border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
+            >
+              Add review
+            </button>
+          )}
+
+          <button className=" relative bg-white transition-all duration-300  w-[120px] h-[40px] text-zinc-600 border border-zinc-300 text-semibold text-[14px] cursor-pointer  before:absolute before:w-1 before:bg-zinc-200 before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
+            Buy again
+          </button>
+          <Modal
+            open={isModalOpen === orderDetail.id}
+            onOk={() => handleAddReview(orderDetail.id)}
+            onCancel={handleCancel}
+          >
+            <div className="flex flex-col gap-2 p-4 font-poppins">
+              <div className="text-zinc-500 font-semibold text-[20px] capitalize">
+                ADD YOUR REVIEW
+              </div>
+              <div className="flex flex-row gap-3 pb-4 border-b border-zinc-300 justify-between">
+                <div className="flex flex-row gap-3">
+                  <img
+                    src={orderDetail.food.image[0]}
+                    className="w-[60px] h-[60px] object-cover"
+                    alt="food"
+                  />
+
+                  <div className="flex flex-col gap-1 justify-between break-all xs:break-normal">
+                    <div className="font-semibold ">
+                      {orderDetail.food.name}
+                    </div>
+                    <div className="text-zinc-500 flex flex-row text-[12px] gap-1 ">
+                      Categories:
+                      {renderCategories(orderDetail.food.food_categories)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-5 bg-white shadow-xl text-[14px] flex flex-col gap-5">
+                <div className="flex flex-row gap-5 items-center">
+                  <div className="font-semibold"> Your Rating: </div>
+                  <Rate
+                    style={{ fontSize: 15 }}
+                    value={score}
+                    onChange={(value) => {
+                      setScore(value);
+                    }}
+                  />
+                </div>
+
+                <form className="flex flex-col gap-5">
+                  <textarea
+                    placeholder="Type Your Review"
+                    className="border w-full border-zinc-400 p-4 h-[250px] focus:outline-none"
+                    value={content}
+                    onChange={(e) => {
+                      setContent(e.target.value);
+                    }}
+                  />
+                </form>
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     ));
@@ -98,20 +207,12 @@ export default function Orders() {
         <div className="flex flex-col justify-between gap-4">
           {renderOrderDetails(order.order_details)}
         </div>
-
-        <div className="flex flex-row justify-end gap-3">
-          <button className=" relative bg-red-600 w-[120px] h-[40px] border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
-            Add review
-          </button>
-          <button className=" relative bg-white transition-all duration-300  w-[120px] h-[40px] text-zinc-600 border border-zinc-300 text-semibold text-[14px] cursor-pointer  before:absolute before:w-1 before:bg-zinc-200 before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500">
-            Buy again
-          </button>
-        </div>
       </div>
     ));
   };
   return (
     <div className="pt-[80px] bg-[#f6fee8] font-poppins  ">
+      {contextHolder}
       <BannerLocation text="Orders" />
 
       <div className="w-full flex flex-col justify-center items-center ">
@@ -130,6 +231,7 @@ export default function Orders() {
           </div>
           <div className="flex flex-col gap-3">
             {orders && !loadingFetchOrder && renderOrders(orders)}
+
             {orders.length === 0 && !loadingFetchOrder && (
               <div>No order is found</div>
             )}

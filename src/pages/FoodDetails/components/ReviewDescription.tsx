@@ -43,11 +43,7 @@ export default function ReviewDescription({
       {content == "description" ? (
         <Description currentFood={currentFood} loading={loading} />
       ) : (
-        <Review
-          currentFood={currentFood}
-          // loading={loading}
-          id={id}
-        />
+        <Review currentFood={currentFood} id={id} />
       )}
     </div>
   );

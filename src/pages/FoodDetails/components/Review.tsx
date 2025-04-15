@@ -1,4 +1,3 @@
-import AddReview from "./AddReview";
 import ReviewDetails from "./ReviewDetails";
 import Food from "../../../types/Food";
 
@@ -12,7 +11,6 @@ export default function Review({
   return (
     <div className="flex flex-col gap-10">
       <ReviewDetails id={id} currentFood={currentFood} />
-      <AddReview id={id} />
     </div>
   );
 }
