@@ -13,6 +13,7 @@ import Cart from "./pages/Cart/Cart.tsx";
 import { useCartStore } from "./store/useCartStore.tsx";
 import Checkout from "./pages/Checkout/Checkout.tsx";
 import Orders from "./pages/Orders/Orders.tsx";
+import Profile from "./pages/Profile/Profile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/orders", element: <Orders /> },
+      { path: "/profile", element: <Profile /> },
     ],
   },
 ]);
