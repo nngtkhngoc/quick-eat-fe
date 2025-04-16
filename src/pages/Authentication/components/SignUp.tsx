@@ -34,6 +34,53 @@ export default function SignUp() {
   const [api, contextHolder] = notification.useNotification();
   const handleSignUp = async () => {
     setLoading(true);
+    if (
+      !username.trim() ||
+      !email.trim() ||
+      !phone.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      api.error({
+        message: "SIGN UP FAILED",
+        description: "Please fill in all required fields.",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      api.error({
+        message: "SIGN UP FAILED",
+        description: "Invalid email format.",
+      });
+      return;
+    }
+
+    const phoneRegex = /^\d{9,}$/;
+    if (!phoneRegex.test(phone)) {
+      api.error({
+        message: "SIGN UP FAILED",
+        description: "Invalid phone number. Must contain at least 9 digits.",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      api.error({
+        message: "SIGN UP FAILED",
+        description: "Password must be at least 6 characters.",
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      api.error({
+        message: "SIGN UP FAILED",
+        description: "Passwords do not match.",
+      });
+      return;
+    }
     try {
       const response = await fetch(`${BASE_URL}/users/signup`, {
         method: "POST",
@@ -191,13 +238,13 @@ export default function SignUp() {
         >
           Forget Password?
         </Link>
-        <button
-          className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
-          onClick={handleSignUp}
-        >
-          {loading ? "Loading..." : "SIGN UP"}
-        </button>
       </form>
+      <button
+        className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
+        onClick={handleSignUp}
+      >
+        {loading ? "Loading..." : "SIGN UP"}
+      </button>
     </div>
   );
 }
