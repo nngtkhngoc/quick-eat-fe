@@ -81,7 +81,7 @@ export default function Home() {
           {renderServiceCards(serviceCards)}
         </div>
 
-        <div className=" flex justify-center items-center flex-col space-y-5 md:-top-[100px] relative pb-5">
+        <div className=" flex justify-center items-center flex-col gap-y-10 md:-top-[65px] relative pb-5">
           <div className="font-bold w-max relative text-[30px] before:w-full pr-4 pl-4 before:h-3 before:bg-amber-200 before:absolute before:bottom-2 before:right-0 before:-z-2 z-5">
             HOW IT WORKS
           </div>

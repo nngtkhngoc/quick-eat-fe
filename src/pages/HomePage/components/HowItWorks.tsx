@@ -6,7 +6,7 @@ export default function HowItWorks() {
   return (
     <div className="flex items-center justify-between font-poppins flex-col md:flex-row md:gap-x-5 ">
       {/* {renderIcons(icons)} */}
-      <div className="flex items-center justify-center font-poppins flex-col space-y-2 ">
+      <div className="flex items-center justify-center font-poppins flex-col gap-y-2 ">
         <div className="w-[100px] h-[100px] rounded-full bg-red-600 flex items-center justify-center ">
           <ShoppingBasket className="w-[58px] h-[60px] text-white relative z-10 stroke-1 hover:translate-y-3 transition-all duration-800" />
         </div>

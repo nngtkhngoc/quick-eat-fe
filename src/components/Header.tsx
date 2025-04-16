@@ -70,6 +70,11 @@ export default function Header() {
     setOpenToggle(false);
     nav("/orders");
   };
+
+  const handleNavProfile = () => {
+    setOpenToggle(false);
+    nav("/profile");
+  };
   return (
     <div className="w-screen fixed top-0 h-[80px] bg-white text-red-600 font-poppins font-bold shadow-lg z-50 dark:bg-black ">
       <div className=" h-full px-10 flex flex-row items-center justify-between  w-full">
@@ -94,7 +99,10 @@ export default function Header() {
             <UserCircle className="w-7 h-7" onClick={handlOpenToggle} />
             {openToggle && (
               <div className="absolute top-10 right-0 bg-white w-max drop-shadow-xl flex flex-col font-medium text-black justify-start">
-                <div className="flex flex-row border-b border-zinc-300 justify-around py-3 gap-2 px-4 hover:text-red-600 transition-all duration:500">
+                <div
+                  onClick={handleNavProfile}
+                  className="flex flex-row border-b border-zinc-300 justify-around py-3 gap-2 px-4 hover:text-red-600 transition-all duration:500"
+                >
                   <User className="w-5 h-5" />
                   <div>Profile</div>
                 </div>

@@ -14,6 +14,8 @@ import { useCartStore } from "./store/useCartStore.tsx";
 import Checkout from "./pages/Checkout/Checkout.tsx";
 import Orders from "./pages/Orders/Orders.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
+import ResetPasswordToken from "./pages/ResetPasswordToken/ResetPasswordToken.tsx";
+import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
       { path: "/checkout", element: <Checkout /> },
       { path: "/orders", element: <Orders /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/reset-password-token", element: <ResetPasswordToken /> },
+      {
+        path: "/reset-password/:reset_password_token",
+        element: <ResetPassword />,
+      },
     ],
   },
 ]);
