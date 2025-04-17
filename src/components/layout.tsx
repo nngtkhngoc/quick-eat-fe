@@ -4,6 +4,7 @@ import Footer from "./Footer.tsx";
 import FooterBottom from "./FooterBottom.tsx";
 import ScrollToTop from "./ScrollToTop.tsx";
 import AutoScrollToTop from "./AutoScrollToTop.tsx";
+import ChatBot from "./ChatBot.tsx";
 
 export default function Layout() {
   return (
@@ -12,6 +13,7 @@ export default function Layout() {
       <Header />
       <Outlet />
       <ScrollToTop />
+      <ChatBot />
       <Footer />
       <FooterBottom />
     </div>
