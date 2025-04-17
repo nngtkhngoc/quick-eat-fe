@@ -45,6 +45,7 @@ export default function SignUp() {
         message: "SIGN UP FAILED",
         description: "Please fill in all required fields.",
       });
+      setLoading(false);
       return;
     }
 
@@ -54,6 +55,8 @@ export default function SignUp() {
         message: "SIGN UP FAILED",
         description: "Invalid email format.",
       });
+      setLoading(false);
+
       return;
     }
 
@@ -63,6 +66,8 @@ export default function SignUp() {
         message: "SIGN UP FAILED",
         description: "Invalid phone number. Must contain at least 9 digits.",
       });
+      setLoading(false);
+
       return;
     }
 
@@ -71,6 +76,8 @@ export default function SignUp() {
         message: "SIGN UP FAILED",
         description: "Password must be at least 6 characters.",
       });
+      setLoading(false);
+
       return;
     }
 
@@ -79,6 +86,8 @@ export default function SignUp() {
         message: "SIGN UP FAILED",
         description: "Passwords do not match.",
       });
+      setLoading(false);
+
       return;
     }
     try {
@@ -123,6 +132,8 @@ export default function SignUp() {
     setLoading(false);
   };
 
+  const [disabled, setDisabled] = useState(true);
+
   return (
     <div className="w-full flex flex-col justify-center items-center gap-3 pb-10 ">
       {contextHolder}
@@ -140,6 +151,7 @@ export default function SignUp() {
           className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
           onChange={(e) => {
             setEmail(e.target.value);
+            setDisabled(false);
           }}
         />
 
@@ -155,6 +167,7 @@ export default function SignUp() {
           className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
           onChange={(e) => {
             setPhone(e.target.value);
+            setDisabled(false);
           }}
         />
 
@@ -171,6 +184,7 @@ export default function SignUp() {
           className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
           onChange={(e) => {
             setUsername(e.target.value);
+            setDisabled(false);
           }}
         />
 
@@ -187,6 +201,7 @@ export default function SignUp() {
             className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
             onChange={(e) => {
               setPassword(e.target.value);
+              setDisabled(false);
             }}
           />
 
@@ -216,6 +231,7 @@ export default function SignUp() {
             className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
             onChange={(e) => {
               setConfirmPassword(e.target.value);
+              setDisabled(false);
             }}
           />
 
@@ -240,7 +256,10 @@ export default function SignUp() {
         </Link>
       </form>
       <button
-        className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
+        disabled={disabled || loading}
+        className={` ${
+          disabled || loading ? "cursor-not-allowed" : "cursor-pointer"
+        } w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500`}
         onClick={handleSignUp}
       >
         {loading ? "Loading..." : "SIGN UP"}

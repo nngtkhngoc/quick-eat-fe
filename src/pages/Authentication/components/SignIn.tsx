@@ -19,6 +19,8 @@ export default function SignIn() {
   const BASE_URL = "https://quick-eat-be.onrender.com/api";
 
   const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(true);
+
   const [api, contextHolder] = notification.useNotification();
   const handleSignIn = async () => {
     setLoading(true);
@@ -87,6 +89,7 @@ export default function SignIn() {
           className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
           onChange={(e) => {
             setIdentifier(e.target.value);
+            setDisabled(false);
           }}
         />
 
@@ -103,6 +106,7 @@ export default function SignIn() {
             className="border border-zinc-300 p-2 w-full text-[12px] focus:outline-red-600 focus:outline-1"
             onChange={(e) => {
               setPassword(e.target.value);
+              setDisabled(false);
             }}
           />
 
@@ -128,8 +132,11 @@ export default function SignIn() {
       </form>
 
       <button
+        disabled={disabled || loading}
         type="submit"
-        className=" w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] cursor-pointer before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500"
+        className={` ${
+          disabled || loading ? "cursor-not-allowed" : "cursor-pointer"
+        } w-full relative bg-red-600 py-3 px-9 font-poppins border-transparent text-white text-semibold text-[14px] before:absolute before:w-1 before:bg-black before:h-1 before:top-0 before:left-0 before:-z-5 hover:z-10 hover:before:w-full hover:before:h-full before:transition-all before:duration-500`}
         onClick={handleSignIn}
       >
         {loading ? "Loading..." : "SIGN IN"}

@@ -7,7 +7,18 @@ interface UserStore {
   loadingUser: boolean;
   fetchUser: () => Promise<void>;
 
+  loadingUpdate: boolean;
+  updateUser: (
+    data: updateUserProps
+  ) => Promise<{ success: boolean; message?: string }>;
+
   signOut: () => void;
+}
+
+interface updateUserProps {
+  fullname: string | null;
+  email: string | null;
+  phone: string | null;
 }
 
 const BASE_URL = "https://quick-eat-be.onrender.com/api";
@@ -15,8 +26,8 @@ const BASE_URL = "https://quick-eat-be.onrender.com/api";
 export const useAuthStore = create<UserStore>((set) => ({
   user: null,
   loadingUser: false,
-  errorSignIn: null,
-  errorSignUp: null,
+
+  loadingUpdate: false,
 
   fetchUser: async () => {
     const token = localStorage.getItem("token") || "";
@@ -42,5 +53,40 @@ export const useAuthStore = create<UserStore>((set) => ({
   signOut: () => {
     set({ user: null });
     localStorage.clear();
+  },
+
+  updateUser: async (data: updateUserProps) => {
+    set({ loadingUpdate: true });
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const response = await fetch(`${BASE_URL}/users`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token,
+        },
+        body: JSON.stringify({
+          fullname: data.fullname,
+          email: data.email,
+          phone_number: data.phone,
+        }),
+      });
+
+      const resData = await response.json();
+
+      if (resData.success) {
+        set({ user: resData.data });
+        return { success: true };
+      }
+
+      return { success: false, message: resData.message };
+    } catch (error) {
+      console.log("Error update user", error);
+      console.log(data);
+      return { success: false, message: "Internal Server Error" };
+    } finally {
+      set({ loadingUpdate: false });
+    }
   },
 }));
